@@ -83,7 +83,7 @@ Conversion factors between degrees and radians. E.g. to convert 40 degrees to ra
 
     Scalar.Epsilon = 0.0001
 
-This is an faloting point error value used by the approx-equal operator. You can change this if it's insufficiently precise for your needs.
+This is an floating point error value used by the approx-equal operator. You can change this if it's insufficiently precise for your needs.
 
     Vector2.Zero
     Vector3.Zero
