@@ -24,9 +24,9 @@ Many of the algorithms used in VectorMath were ported or adapted from the Kazmat
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 8.1 (Xcode 6.1, Apple LLVM compiler 6.0)
-* Earliest supported deployment target - iOS 7.0
-* Earliest compatible deployment target - iOS 7.0
+* Supported build target - iOS 8.1, Mac OS 10.10 (Xcode 6.1, Apple LLVM compiler 6.0)
+* Earliest supported deployment target - iOS 7.0, Mac OS 10.9
+* Earliest compatible deployment target - iOS 7.0, Mac OS 10.9
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
 
@@ -34,7 +34,7 @@ NOTE: 'Supported' means that the library has been tested with this version. 'Com
 Installation
 --------------
 
-To use the VectorMath functions in an app, just drag the VectorMath.swift file (demo files and assets are not needed) into your project. You may also wish to include the VectorMath+SceneKit.swift and/or VectorMath+Quartz.swift compatibility extensions.
+To use the VectorMath functions in an app, just drag the VectorMath.swift file (demo/test files and assets are not needed) into your project. You may also wish to include the VectorMath+SceneKit.swift and/or VectorMath+Quartz.swift compatibility extensions.
 
 
 Types
@@ -59,9 +59,9 @@ These represent homogenous 3x3 and 4x4 transform matrices, respectively.
 
     Quaternion
 
-This represents a rotation in 3D space. It has the same structure as Vector4D, but is defined as a different type due to the different usage cases and methods.
+This represents a rotation in 3D space. It has the same structure as Vector4D, but is defined as a different type due to the different use cases and methods.
  
-All the VectorMath types conform to Equatable and Hashable, so they can be used in collections.
+All the VectorMath types conform to Equatable and Hashable, so they can be stored in Swift dictionaries.
 
 
 Constants
@@ -83,14 +83,14 @@ Conversion factors between degrees and radians. E.g. to convert 40 degrees to ra
 
     Scalar.Epsilon = 0.0001
 
-This is an floating point error value used by the approx-equal operator. You can change this if it's insufficiently precise for your needs.
+This is a floating point error value used by the approx-equal operator. You can change this if it's insufficiently (or excessively) precise for your needs.
 
     Vector2.Zero
     Vector3.Zero
     Vector4.Zero
     Quaternion.Zero
 
-These are zero vector constants
+These are zero vector constants, useful as default values for vectors
 
     Vector2.X
     Vector2.Y
@@ -114,7 +114,7 @@ These are identity matrices, which have the property that multiplying them by an
 Methods
 ------------
 
-The complete list of properties and methods is given below. These are mostly self-explanatory. If you can't find a method you are looking for (e.g. a method to rotate a vector using a quaternion), it's probably implemented as an operator (see "Operators" below).
+The complete list of VectorMath properties and methods is given below. These are mostly self-explanatory. If you can't find a method you are looking for (e.g. a method to rotate a vector using a quaternion), it's probably implemented as an operator (see "Operators" below).
 
     Vector2
         init(x: Scalar, y: Scalar)
@@ -222,11 +222,11 @@ The complete list of properties and methods is given below. These are mostly sel
 Operators
 ------------
 
-VectorMath makes extensive use of operator overloading, but I've tried not to go overboard with crazy custom operators! The only nonstandard operator is `~=` meaning "approximately equal", which is extremely useful for comparing Scalar, Vector or Matrix values for equality, as, due to floating point imprecision, they are rarely identical.
+VectorMath makes extensive use of operator overloading, but I've tried not to go overboard with crazy custom operators. The only nonstandard operator defined is `~=`, meaning "approximately equal", which is extremely useful for comparing Scalar, Vector or Matrix values for equality, as, due to floating point imprecision, they are rarely identical.
 
-The *, /, +, - and == operators are implemented for most of the included types. * in particular is useful for matrix and vector transforms. For example, to apply a matrix transform "m" to a vector "v" you can just write `m * v`. * can also be used in conjunction with a scalar value to scale a vector.
+The *, /, +, - and == operators are implemented for most of the included types. * in particular is useful for matrix and vector transforms. For example, to apply a matrix transform "m" to a vector "v" you can just write `m * v`. * can also be used in conjunction with a Scalar value to scale a vector.
 
-Unaray minus "-" is supported for inversion/negation on vectors and matrices.
+Unary minus is supported for inversion/negation on vectors and matrices.
 
 Dot product, cross product and normalization are not available in operator form, but are supplied as methods on the various types.
 
