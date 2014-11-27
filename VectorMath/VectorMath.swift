@@ -860,7 +860,7 @@ extension Matrix4: Equatable, Hashable {
     }
     
     func toArray() -> [Scalar] {
-        return [m11, m12, m13, m21, m22, m23, m31, m32, m33]
+        return [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44]
     }
     
     var adjugate: Matrix4 {

@@ -146,3 +146,30 @@ class QuaternionTests: XCTestCase {
         XCTAssertTrue(b ~= c)
     }
 }
+
+class PerformanceTests: XCTestCase {
+    
+    func testMatrix3MultiplicationPerformance() {
+        
+        let a = Matrix3(rotation: .HalfPi)
+        var b = Matrix3(translation: Vector2(1, 10))
+        
+        measureBlock {
+            for _ in 0 ..< 100000 {
+                b = a * b
+            }
+        }
+    }
+    
+    func testMatrix4MultiplicationPerformance() {
+        
+        let a = Matrix4(rotation: Vector4(1, 0, 0, .HalfPi))
+        var b = Matrix4(translation: Vector3(1, 10, 24))
+        
+        measureBlock {
+            for _ in 0 ..< 100000 {
+                b = a * b
+            }
+        }
+    }
+}
