@@ -120,7 +120,7 @@ extension Vector2: Equatable, Hashable {
     static let Y = Vector2(0, 1)
     
     var hashValue: Int {
-        return x.hashValue + y.hashValue
+        return x.hashValue &+ y.hashValue
     }
     
     var lengthSquared: Scalar {
@@ -252,7 +252,7 @@ extension Vector3: Equatable, Hashable {
     static let Z = Vector3(0, 0, 1)
     
     var hashValue: Int {
-        return x.hashValue + y.hashValue + z.hashValue
+        return x.hashValue &+ y.hashValue &+ z.hashValue
     }
     
     var lengthSquared: Scalar {
@@ -409,7 +409,7 @@ extension Vector4: Equatable, Hashable {
     static let W = Vector4(0, 0, 0, 1)
     
     var hashValue: Int {
-        return x.hashValue + y.hashValue + z.hashValue + w.hashValue
+        return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
     }
     
     var lengthSquared: Scalar {
@@ -555,9 +555,9 @@ extension Matrix3: Equatable, Hashable {
     
     var hashValue: Int {
         
-        var hash = m11.hashValue + m12.hashValue + m13.hashValue
-        hash += m21.hashValue + m22.hashValue + m23.hashValue
-        hash += m31.hashValue + m32.hashValue + m33.hashValue
+        var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue
+        hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue
+        hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue
         return hash
     }
     
@@ -732,10 +732,10 @@ extension Matrix4: Equatable, Hashable {
     
     var hashValue: Int {
         
-        var hash = m11.hashValue + m12.hashValue + m13.hashValue + m14.hashValue
-        hash += m21.hashValue + m22.hashValue + m23.hashValue + m24.hashValue
-        hash += m31.hashValue + m32.hashValue + m33.hashValue + m34.hashValue
-        hash += m41.hashValue + m42.hashValue + m43.hashValue + m44.hashValue
+        var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue &+ m14.hashValue
+        hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue &+ m24.hashValue
+        hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue &+ m34.hashValue
+        hash = hash &+ m41.hashValue &+ m42.hashValue &+ m43.hashValue &+ m44.hashValue
         return hash
     }
     
@@ -1087,7 +1087,7 @@ extension Quaternion: Equatable, Hashable {
     static let Identity = Quaternion(0, 0, 0, 1)
     
     var hashValue: Int {
-        return x.hashValue + y.hashValue + z.hashValue + w.hashValue
+        return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
     }
     
     var lengthSquared: Scalar {
