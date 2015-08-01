@@ -123,6 +123,42 @@ class Matrix4Tests: XCTestCase {
         
         XCTAssertTrue(matrix ~= compare)
     }
+    
+    func testRotationAndTranslation() {
+        let point = Vector4(0.0, -1.0, 0.0, 1.0);
+        let euclideanTransformation = Matrix4(0.0, 1.0, 0.0, 0.0,
+            -1.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 0.0,
+            -1.0, 0.0, 0.0, 1.0);
+        
+        let result = euclideanTransformation * point;
+        let expectedResult = Vector4(0.0, 0.0, 0.0, 1.0);
+        
+        XCTAssertTrue(result ~= expectedResult);
+    }
+    
+    
+    func testTransformationMatrixMultiplication() {
+        let somePoint = Vector4(2.0, 2.0, 2.0, 1.0);
+        let zAxisTransformationMaxtrix90Positive = Matrix4(0.0, 1.0, 0.0, 0.0,
+            -1.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 1.0);
+        let yAxisTransformationMaxtrix90Positive = Matrix4(0.0, 0.0, 1.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            -1.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 1.0);
+        let xAxisTransformationMaxtrix90Positive = Matrix4(1.0, 0.0, 0.0, 0.0,
+            0.0, 0.0, -1.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 0.0, 1.0);
+        
+        let resultPoint = (xAxisTransformationMaxtrix90Positive * (yAxisTransformationMaxtrix90Positive * (zAxisTransformationMaxtrix90Positive * somePoint)));
+        
+        let comparePoint = (xAxisTransformationMaxtrix90Positive * yAxisTransformationMaxtrix90Positive * zAxisTransformationMaxtrix90Positive) * somePoint;
+        
+        XCTAssertTrue(resultPoint ~= comparePoint);
+    }
 }
 
 class QuaternionTests: XCTestCase {
