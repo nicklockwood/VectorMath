@@ -24,8 +24,8 @@ Many of the algorithms used in VectorMath were ported or adapted from the Kazmat
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 8.1, Mac OS 10.10 (Xcode 6.1, Apple LLVM compiler 6.0)
-* Earliest supported deployment target - iOS 7.0, Mac OS 10.9
+* Supported build target - iOS 9.3, Mac OS 10.11 (Xcode 7.3, Apple LLVM compiler 7.1)
+* Earliest supported deployment target - iOS 8.0, Mac OS 10.10
 * Earliest compatible deployment target - iOS 7.0, Mac OS 10.9
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
@@ -234,6 +234,12 @@ Dot product, cross product and normalization are not available in operator form,
 Release notes
 ----------------
 
+Version 0.2
+ 
+- Added Mac support
+- Fixed Vector4, Matrix4 multiplication bug
+- Fixed bug in `Quaternion(pitch:, yaw:, roll:)` initializer
+ 
 Version 0.1
 
 - First release

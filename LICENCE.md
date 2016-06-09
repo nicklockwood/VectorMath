@@ -1,6 +1,6 @@
 VectorMath
 
-Version 0.1, November 25th, 2014
+Version 0.2, June 9th, 2016
 
 Copyright (C) 2014 Charcoal Design
 

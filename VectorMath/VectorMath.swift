@@ -2,7 +2,7 @@
 //  VectorMath.swift
 //  VectorMath
 //
-//  Version 0.1
+//  Version 0.2
 //
 //  Created by Nick Lockwood on 24/11/2014.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
@@ -97,7 +97,6 @@ struct Quaternion {
 //MARK: Scalar
 
 extension Scalar {
-    
     static let Pi = Scalar(M_PI)
     static let HalfPi = Scalar(M_PI_2)
     static let QuarterPi = Scalar(M_PI_4)
@@ -114,7 +113,6 @@ func ~=(lhs: Scalar, rhs: Scalar) -> Bool {
 //MARK: Vector2
 
 extension Vector2: Equatable, Hashable {
-    
     static let Zero = Vector2(0, 0)
     static let X = Vector2(1, 0)
     static let Y = Vector2(0, 1)
@@ -140,9 +138,8 @@ extension Vector2: Equatable, Hashable {
     }
     
     init(_ v: [Scalar]) {
-        
         assert(v.count == 2, "array must contain 2 elements, contained \(v.count)")
-        
+
         x = v[0]
         y = v[1]
     }
@@ -160,7 +157,6 @@ extension Vector2: Equatable, Hashable {
     }
     
     func normalized() -> Vector2 {
-        
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -169,7 +165,6 @@ extension Vector2: Equatable, Hashable {
     }
     
     func rotatedBy(radians: Scalar) -> Vector2 {
-        
         let cs = cos(radians)
         let sn = sin(radians)
         return Vector2(x * cs - y * sn, x * sn + y * cs)
@@ -180,7 +175,6 @@ extension Vector2: Equatable, Hashable {
     }
     
     func angleWith(v: Vector2) -> Scalar {
-        
         if self == v {
             return 0
         }
@@ -219,7 +213,6 @@ func *(lhs: Vector2, rhs: Scalar) -> Vector2 {
 }
 
 func *(lhs: Vector2, rhs: Matrix3) -> Vector2 {
-    
     return Vector2(
         lhs.x * rhs.m11 + lhs.y * rhs.m21 + rhs.m31,
         lhs.x * rhs.m12 + lhs.y * rhs.m22 + rhs.m32
@@ -245,7 +238,6 @@ func ~=(lhs: Vector2, rhs: Vector2) -> Bool {
 //MARK: Vector3
 
 extension Vector3: Equatable, Hashable {
-    
     static let Zero = Vector3(0, 0, 0)
     static let X = Vector3(1, 0, 0)
     static let Y = Vector3(0, 1, 0)
@@ -302,7 +294,6 @@ extension Vector3: Equatable, Hashable {
     }
     
     init(_ v: [Scalar]) {
-        
         assert(v.count == 3, "array must contain 3 elements, contained \(v.count)")
         
         x = v[0]
@@ -323,7 +314,6 @@ extension Vector3: Equatable, Hashable {
     }
     
     func normalized() -> Vector3 {
-        
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -357,7 +347,6 @@ func *(lhs: Vector3, rhs: Scalar) -> Vector3 {
 }
 
 func *(lhs: Vector3, rhs: Matrix3) -> Vector3 {
-    
     return Vector3(
         lhs.x * rhs.m11 + lhs.y * rhs.m21 + lhs.z * rhs.m31,
         lhs.x * rhs.m12 + lhs.y * rhs.m22 + lhs.z * rhs.m32,
@@ -366,7 +355,6 @@ func *(lhs: Vector3, rhs: Matrix3) -> Vector3 {
 }
 
 func *(lhs: Vector3, rhs: Matrix4) -> Vector3 {
-    
     return Vector3(
         lhs.x * rhs.m11 + lhs.y * rhs.m21 + lhs.z * rhs.m31 + rhs.m41,
         lhs.x * rhs.m12 + lhs.y * rhs.m22 + lhs.z * rhs.m32 + rhs.m42,
@@ -375,7 +363,6 @@ func *(lhs: Vector3, rhs: Matrix4) -> Vector3 {
 }
 
 func *(v: Vector3, q: Quaternion) -> Vector3 {
-    
     let qv = q.xyz
     let uv = qv.cross(v)
     let uuv = qv.cross(uv)
@@ -401,7 +388,6 @@ func ~=(lhs: Vector3, rhs: Vector3) -> Bool {
 //MARK: Vector4
 
 extension Vector4: Equatable, Hashable {
-    
     static let Zero = Vector4(0, 0, 0, 0)
     static let X = Vector4(1, 0, 0, 0)
     static let Y = Vector4(0, 1, 0, 0)
@@ -470,7 +456,6 @@ extension Vector4: Equatable, Hashable {
     }
     
     init(_ v: [Scalar]) {
-        
         assert(v.count == 4, "array must contain 4 elements, contained \(v.count)")
         
         x = v[0]
@@ -488,7 +473,6 @@ extension Vector4: Equatable, Hashable {
     }
     
     func normalized() -> Vector4 {
-        
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -522,7 +506,6 @@ func *(lhs: Vector4, rhs: Scalar) -> Vector4 {
 }
 
 func *(lhs: Vector4, rhs: Matrix4) -> Vector4 {
-    
     return Vector4(
         lhs.x * rhs.m11 + lhs.y * rhs.m21 + lhs.z * rhs.m31 + lhs.w * rhs.m41,
         lhs.x * rhs.m12 + lhs.y * rhs.m22 + lhs.z * rhs.m32 + lhs.w * rhs.m42,
@@ -550,11 +533,9 @@ func ~=(lhs: Vector4, rhs: Vector4) -> Bool {
 //MARK: Matrix3
 
 extension Matrix3: Equatable, Hashable {
-    
     static let Identity = Matrix3(1, 0 ,0 ,0, 1, 0, 0, 0, 1)
     
     var hashValue: Int {
-        
         var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue
         hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue
         hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue
@@ -565,19 +546,18 @@ extension Matrix3: Equatable, Hashable {
         _ m21: Scalar, _ m22: Scalar, _ m23: Scalar,
         _ m31: Scalar, _ m32: Scalar, _ m33: Scalar) {
             
-            self.m11 = m11 // 0
-            self.m12 = m12 // 1
-            self.m13 = m13 // 2
-            self.m21 = m21 // 3
-            self.m22 = m22 // 4
-            self.m23 = m23 // 5
-            self.m31 = m31 // 6
-            self.m32 = m32 // 7
-            self.m33 = m33 // 8
+        self.m11 = m11 // 0
+        self.m12 = m12 // 1
+        self.m13 = m13 // 2
+        self.m21 = m21 // 3
+        self.m22 = m22 // 4
+        self.m23 = m23 // 5
+        self.m31 = m31 // 6
+        self.m32 = m32 // 7
+        self.m33 = m33 // 8
     }
     
     init(scale: Vector2) {
-        
         self.init(
             scale.x, 0, 0,
             0, scale.y, 0,
@@ -586,7 +566,6 @@ extension Matrix3: Equatable, Hashable {
     }
     
     init(translation: Vector2) {
-        
         self.init(
             1, 0, 0,
             0, 1, 0,
@@ -595,7 +574,6 @@ extension Matrix3: Equatable, Hashable {
     }
     
     init(rotation radians: Scalar) {
-        
         let cs = cos(radians)
         let sn = sin(radians)
         self.init(
@@ -606,9 +584,7 @@ extension Matrix3: Equatable, Hashable {
     }
     
     init(_ m: [Scalar]) {
-        
         assert(m.count == 9, "array must contain 9 elements, contained \(m.count)")
-        
         self.init(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8])
     }
     
@@ -617,7 +593,6 @@ extension Matrix3: Equatable, Hashable {
     }
     
     var adjugate: Matrix3 {
-        
         return Matrix3(
             m22 * m33 - m23 * m32,
             m13 * m32 - m12 * m33,
@@ -645,7 +620,6 @@ extension Matrix3: Equatable, Hashable {
     }
 
     func interpolatedWith(m: Matrix3, t: Scalar) -> Matrix3 {
-        
         return Matrix3(
             m11 + (m.m11 - m11) * t,
             m12 + (m.m12 - m12) * t,
@@ -665,7 +639,6 @@ prefix func -(m: Matrix3) -> Matrix3 {
 }
 
 func *(lhs: Matrix3, rhs: Matrix3) -> Matrix3 {
-    
     return Matrix3(
         lhs.m11 * rhs.m11 + lhs.m21 * rhs.m12 + lhs.m31 * rhs.m13,
         lhs.m12 * rhs.m11 + lhs.m22 * rhs.m12 + lhs.m32 * rhs.m13,
@@ -688,7 +661,6 @@ func *(lhs: Matrix3, rhs: Vector3) -> Vector3 {
 }
 
 func *(lhs: Matrix3, rhs: Scalar) -> Matrix3 {
-    
     return Matrix3(
         lhs.m11 * rhs, lhs.m12 * rhs, lhs.m13 * rhs,
         lhs.m21 * rhs, lhs.m22 * rhs, lhs.m23 * rhs,
@@ -697,7 +669,6 @@ func *(lhs: Matrix3, rhs: Scalar) -> Matrix3 {
 }
 
 func ==(lhs: Matrix3, rhs: Matrix3) -> Bool {
-    
     if lhs.m11 != rhs.m11 { return false }
     if lhs.m12 != rhs.m12 { return false }
     if lhs.m13 != rhs.m13 { return false }
@@ -711,7 +682,6 @@ func ==(lhs: Matrix3, rhs: Matrix3) -> Bool {
 }
 
 func ~=(lhs: Matrix3, rhs: Matrix3) -> Bool {
-    
     if !(lhs.m11 ~= rhs.m11) { return false }
     if !(lhs.m12 ~= rhs.m12) { return false }
     if !(lhs.m13 ~= rhs.m13) { return false }
@@ -727,11 +697,9 @@ func ~=(lhs: Matrix3, rhs: Matrix3) -> Bool {
 //MARK: Matrix4
 
 extension Matrix4: Equatable, Hashable {
-    
     static let Identity = Matrix4(1, 0 ,0 ,0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
     
     var hashValue: Int {
-        
         var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue &+ m14.hashValue
         hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue &+ m24.hashValue
         hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue &+ m34.hashValue
@@ -744,26 +712,25 @@ extension Matrix4: Equatable, Hashable {
         _ m31: Scalar, _ m32: Scalar, _ m33: Scalar, _ m34: Scalar,
         _ m41: Scalar, _ m42: Scalar, _ m43: Scalar, _ m44: Scalar) {
             
-            self.m11 = m11 // 0
-            self.m12 = m12 // 1
-            self.m13 = m13 // 2
-            self.m14 = m14 // 3
-            self.m21 = m21 // 4
-            self.m22 = m22 // 5
-            self.m23 = m23 // 6
-            self.m24 = m24 // 7
-            self.m31 = m31 // 8
-            self.m32 = m32 // 9
-            self.m33 = m33 // 10
-            self.m34 = m34 // 11
-            self.m41 = m41 // 12
-            self.m42 = m42 // 13
-            self.m43 = m43 // 14
-            self.m44 = m44 // 15
+        self.m11 = m11 // 0
+        self.m12 = m12 // 1
+        self.m13 = m13 // 2
+        self.m14 = m14 // 3
+        self.m21 = m21 // 4
+        self.m22 = m22 // 5
+        self.m23 = m23 // 6
+        self.m24 = m24 // 7
+        self.m31 = m31 // 8
+        self.m32 = m32 // 9
+        self.m33 = m33 // 10
+        self.m34 = m34 // 11
+        self.m41 = m41 // 12
+        self.m42 = m42 // 13
+        self.m43 = m43 // 14
+        self.m44 = m44 // 15
     }
     
     init(scale s: Vector3) {
-        
         self.init(
             s.x, 0, 0, 0,
             0, s.y, 0, 0,
@@ -773,7 +740,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     init(translation t: Vector3) {
-        
         self.init(
             1, 0, 0, 0,
             0, 1, 0, 0,
@@ -787,7 +753,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     init(quaternion q: Quaternion) {
-        
         self.init(
             1 - 2 * (q.y * q.y + q.z * q.z), 2 * (q.x * q.y + q.z * q.w), 2 * (q.x * q.z - q.y * q.w), 0,
             2 * (q.x * q.y - q.z * q.w), 1 - 2 * (q.x * q.x + q.z * q.z), 2 * (q.y * q.z + q.x * q.w), 0,
@@ -805,7 +770,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     init(fovy: Scalar, aspect: Scalar, near: Scalar, far: Scalar) {
-        
         let dz = far - near
         
         assert(dz > 0, "far value must be greater than near")
@@ -824,7 +788,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     init(top: Scalar, right: Scalar, bottom: Scalar, left: Scalar, near: Scalar, far: Scalar) {
-        
         let dx = right - left
         let dy = top - bottom
         let dz = far - near
@@ -838,7 +801,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     init(_ m: [Scalar]) {
-        
         assert(m.count == 16, "array must contain 16 elements, contained \(m.count)")
         
         m11 = m[0]
@@ -864,7 +826,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     var adjugate: Matrix4 {
-        
         var m = Matrix4.Identity
         
         m.m11 = m22 * m33 * m44 - m22 * m34 * m43
@@ -943,7 +904,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     var transpose: Matrix4 {
-        
         return Matrix4(
             m11, m21, m31, m41,
             m12, m22, m32, m42,
@@ -953,7 +913,6 @@ extension Matrix4: Equatable, Hashable {
     }
     
     var inverse: Matrix4 {
-        
         let adjugate = self.adjugate
         let determinant = determinantForAdjugate(adjugate)
         return adjugate * (1 / determinant)
@@ -965,7 +924,6 @@ prefix func -(m: Matrix4) -> Matrix4 {
 }
 
 func *(lhs: Matrix4, rhs: Matrix4) -> Matrix4 {
-    
     var m = Matrix4.Identity
     
     m.m11 = lhs.m11 * rhs.m11 + lhs.m21 * rhs.m12
@@ -1028,7 +986,6 @@ func *(lhs: Matrix4, rhs: Vector4) -> Vector4 {
 }
 
 func *(lhs: Matrix4, rhs: Scalar) -> Matrix4 {
-    
     return Matrix4(
         lhs.m11 * rhs, lhs.m12 * rhs, lhs.m13 * rhs, lhs.m14 * rhs,
         lhs.m21 * rhs, lhs.m22 * rhs, lhs.m23 * rhs, lhs.m24 * rhs,
@@ -1038,7 +995,6 @@ func *(lhs: Matrix4, rhs: Scalar) -> Matrix4 {
 }
 
 func ==(lhs: Matrix4, rhs: Matrix4) -> Bool {
-    
     if lhs.m11 != rhs.m11 { return false }
     if lhs.m12 != rhs.m12 { return false }
     if lhs.m13 != rhs.m13 { return false }
@@ -1059,7 +1015,6 @@ func ==(lhs: Matrix4, rhs: Matrix4) -> Bool {
 }
 
 func ~=(lhs: Matrix4, rhs: Matrix4) -> Bool {
-    
     if !(lhs.m11 ~= rhs.m11) { return false }
     if !(lhs.m12 ~= rhs.m12) { return false }
     if !(lhs.m13 ~= rhs.m13) { return false }
@@ -1082,7 +1037,6 @@ func ~=(lhs: Matrix4, rhs: Matrix4) -> Bool {
 //MARK: Quaternion
 
 extension Quaternion: Equatable, Hashable {
-    
     static let Zero = Quaternion(0, 0, 0, 0)
     static let Identity = Quaternion(0, 0, 0, 1)
     
@@ -1130,7 +1084,6 @@ extension Quaternion: Equatable, Hashable {
     }
     
     init(axisAngle: Vector4) {
-        
         let r = axisAngle.w * 0.5
         let scale = sin(r)
         let a = axisAngle.xyz * scale
@@ -1138,17 +1091,15 @@ extension Quaternion: Equatable, Hashable {
     }
     
     init(pitch: Scalar, yaw: Scalar, roll: Scalar) {
-        let quatPitch = Quaternion(axisAngle: Vector4(1, 0, 0, pitch));
-        let quatYaw = Quaternion(axisAngle: Vector4(0, 1, 0, yaw));
-        let quatRoll = Quaternion(axisAngle: Vector4(0, 0, 1, roll));
-        self = quatPitch * quatYaw * quatRoll;
+        let quatPitch = Quaternion(axisAngle: Vector4(1, 0, 0, pitch))
+        let quatYaw = Quaternion(axisAngle: Vector4(0, 1, 0, yaw))
+        let quatRoll = Quaternion(axisAngle: Vector4(0, 0, 1, roll))
+        self = quatPitch * quatYaw * quatRoll
     }
     
     init(rotationMatrix m: Matrix4) {
-        
         let diagonal = m.m11 + m.m22 + m.m33 + 1
         if diagonal ~= 0 {
-            
             let scale = sqrt(diagonal) * 2
             self.init(
                 (m.m32 - m.m23) / scale,
@@ -1156,9 +1107,7 @@ extension Quaternion: Equatable, Hashable {
                 (m.m21 - m.m12) / scale,
                 0.25 * scale
             )
-            
         } else if m.m11 > max(m.m22, m.m33) {
-            
             let scale = sqrt(1 + m.m11 - m.m22 - m.m33) * 2
             self.init(
                 0.25 * scale,
@@ -1166,9 +1115,7 @@ extension Quaternion: Equatable, Hashable {
                 (m.m13 + m.m31) / scale,
                 (m.m32 - m.m23) / scale
             )
-            
         } else if m.m22 > m.m33 {
-            
             let scale = sqrt(1 + m.m22 - m.m11 - m.m33) * 2
             self.init(
                 (m.m21 + m.m12) / scale,
@@ -1176,9 +1123,7 @@ extension Quaternion: Equatable, Hashable {
                 (m.m32 + m.m23) / scale,
                 (m.m13 - m.m31) / scale
             )
-            
         } else {
-            
             let scale = sqrt(1 + m.m33 - m.m11 - m.m22) * 2
             self.init(
                 (m.m13 + m.m31) / scale,
@@ -1190,7 +1135,6 @@ extension Quaternion: Equatable, Hashable {
     }
     
     init(_ v: [Scalar]) {
-        
         assert(v.count == 4, "array must contain 4 elements, contained \(v.count)")
         
         x = v[0]
@@ -1200,7 +1144,6 @@ extension Quaternion: Equatable, Hashable {
     }
     
     func toAxisAngle() -> Vector4 {
-        
         let scale = xyz.length
         if scale ~= 0 || scale ~= .TwoPi {
             return .Z
@@ -1222,7 +1165,6 @@ extension Quaternion: Equatable, Hashable {
     }
     
     func normalized() -> Quaternion {
-        
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -1231,7 +1173,6 @@ extension Quaternion: Equatable, Hashable {
     }
     
     func interpolatedWith(q: Quaternion, t: Scalar) -> Quaternion {
-        
         let dot = max(-1, min(1, self.dot(q)))
         if dot ~= 1 {
             return (self + (q - self) * t).normalized()
@@ -1257,7 +1198,6 @@ func -(lhs: Quaternion, rhs: Quaternion) -> Quaternion {
 }
 
 func *(lhs: Quaternion, rhs: Quaternion) -> Quaternion {
-    
     return Quaternion(
         lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
         lhs.w * rhs.y + lhs.y * rhs.w + lhs.z * rhs.x - lhs.x * rhs.z,
