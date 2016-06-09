@@ -1138,20 +1138,10 @@ extension Quaternion: Equatable, Hashable {
     }
     
     init(pitch: Scalar, yaw: Scalar, roll: Scalar) {
-        
-        let sy = sin(yaw * 0.5)
-        let cy = cos(yaw * 0.5)
-        let sz = sin(roll * 0.5)
-        let cz = cos(roll * 0.5)
-        let sx = sin(pitch * 0.5)
-        let cx = cos(pitch * 0.5)
-        
-        self.init(
-            cy * cz * cx - sy * sz * sx,
-            sy * sz * cx + cy * cz * sx,
-            sy * cz * cx + cy * sz * sx,
-            cy * sz * cx - sy * cz * sx
-        )
+        let quatPitch = Quaternion(axisAngle: Vector4(1, 0, 0, pitch));
+        let quatYaw = Quaternion(axisAngle: Vector4(0, 1, 0, yaw));
+        let quatRoll = Quaternion(axisAngle: Vector4(0, 0, 1, roll));
+        self = quatPitch * quatYaw * quatRoll;
     }
     
     init(rotationMatrix m: Matrix4) {
