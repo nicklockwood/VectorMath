@@ -464,8 +464,23 @@ extension Vector4: Equatable, Hashable {
         w = v[3]
     }
     
+    init(vec3: Vector3, w: Scalar) {
+        self.x = vec3.x
+        self.y = vec3.y
+        self.z = vec3.z
+        self.w = w
+    }
+    
     func toArray() -> [Scalar] {
         return [x, y, z, w]
+    }
+    
+    func toVector3() -> Vector3 {
+        if w ~= 0 {
+            return self.xyz
+        } else {
+            return self.xyz / self.w
+        }
     }
     
     func dot(v: Vector4) -> Scalar {
