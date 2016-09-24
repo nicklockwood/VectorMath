@@ -15,12 +15,12 @@ class Vector2Tests: XCTestCase {
 
         let a = Vector2(1, 0)
         let b = Vector2(0, 1)
-        let c = a.rotatedBy(.HalfPi)
+        let c = a.rotated(by: .halfPi)
 
         XCTAssertTrue(b ~= c)
 
         let d = Vector2(0.5, 1.5)
-        let e = a.rotatedBy(.HalfPi, around: Vector2(0, 0.5))
+        let e = a.rotated(by: .halfPi, around: Vector2(0, 0.5))
 
         XCTAssertTrue(d ~= e)
     }
@@ -29,9 +29,9 @@ class Vector2Tests: XCTestCase {
 
         let a = Vector2(1, 0)
         let b = Vector2(0, 1)
-        let angle = a.angleWith(b)
+        let angle = a.angle(with: b)
 
-        XCTAssertTrue(angle ~= .HalfPi)
+        XCTAssertTrue(angle ~= .halfPi)
     }
 }
 
@@ -39,7 +39,7 @@ class Matrix3Tests: XCTestCase {
 
     func testScale() {
 
-        let transform = CGAffineTransformMakeScale(0.3, 0.4)
+        let transform = CGAffineTransform(scaleX: 0.3, y: 0.4)
         let matrix = Matrix3(transform)
         let compare = Matrix3(scale: Vector2(0.3, 0.4))
 
@@ -48,7 +48,7 @@ class Matrix3Tests: XCTestCase {
 
     func testTranslation() {
 
-        let transform = CGAffineTransformMakeTranslation(0.3, 0.4)
+        let transform = CGAffineTransform(translationX: 0.3, y: 0.4)
         let matrix = Matrix3(transform)
         let compare = Matrix3(translation: Vector2(0.3, 0.4))
 
@@ -57,18 +57,18 @@ class Matrix3Tests: XCTestCase {
 
     func testRotation() {
 
-        let transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        let transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
         let matrix = Matrix3(transform)
-        let compare = Matrix3(rotation: .HalfPi)
+        let compare = Matrix3(rotation: .halfPi)
 
         XCTAssertTrue(matrix ~= compare)
     }
 
     func testMatrix3Multiplication() {
 
-        let a = Matrix3(rotation: .HalfPi)
-        let b = Matrix3(rotation: .QuarterPi)
-        let c = Matrix3(rotation: .HalfPi + .QuarterPi)
+        let a = Matrix3(rotation: .halfPi)
+        let b = Matrix3(rotation: .quarterPi)
+        let c = Matrix3(rotation: .halfPi + .quarterPi)
         let d = a * b
 
         XCTAssertTrue(c ~= d)
@@ -76,7 +76,7 @@ class Matrix3Tests: XCTestCase {
 
     func testVector3Multiplication() {
 
-        let m = Matrix3(rotation: .HalfPi)
+        let m = Matrix3(rotation: .halfPi)
         let a = Vector3(1, 0, 1)
         let b = Vector3(0, 1, 1)
         let c = a * m
@@ -86,7 +86,7 @@ class Matrix3Tests: XCTestCase {
 
     func testVector2Multiplication() {
 
-        let m = Matrix3(rotation: .HalfPi)
+        let m = Matrix3(rotation: .halfPi)
         let a = Vector2(1, 0)
         let b = Vector2(0, 1)
         let c = a * m
@@ -119,7 +119,7 @@ class Matrix4Tests: XCTestCase {
 
         let transform = CATransform3DMakeRotation(CGFloat(M_PI_2), 1, 0, 0)
         let matrix = Matrix4(transform)
-        let compare = Matrix4(rotation: Vector4(1, 0, 0, .HalfPi))
+        let compare = Matrix4(rotation: Vector4(1, 0, 0, .halfPi))
 
         XCTAssertTrue(matrix ~= compare)
     }
@@ -164,7 +164,7 @@ class QuaternionTests: XCTestCase {
 
     func testAxisAngleConversion() {
 
-        let aaa = Vector4(1, 0, 0, .HalfPi)
+        let aaa = Vector4(1, 0, 0, .halfPi)
         let q = Quaternion(axisAngle: aaa)
         let aab = q.toAxisAngle()
 
@@ -173,7 +173,7 @@ class QuaternionTests: XCTestCase {
 
     func testVector3Multiplication() {
 
-        let q = Quaternion(axisAngle: Vector4(0, 0, 1, .HalfPi))
+        let q = Quaternion(axisAngle: Vector4(0, 0, 1, .halfPi))
         let a = Vector3(1, 0, 1)
         let b = Vector3(0, 1, 1)
         let c = a * q
@@ -183,12 +183,12 @@ class QuaternionTests: XCTestCase {
 
     func testEulerConversion() {
 
-        var quat = Quaternion(pitch: Scalar.QuarterPi, yaw: 0, roll: 0)
-        XCTAssertTrue(quat.toPitchYawRoll().pitch ~= Scalar.QuarterPi)
-        quat = Quaternion(pitch: 0, yaw: Scalar.QuarterPi, roll: 0)
-        XCTAssertTrue(quat.toPitchYawRoll().yaw ~= Scalar.QuarterPi)
-        quat = Quaternion(pitch: 0, yaw: 0, roll: Scalar.QuarterPi)
-        XCTAssertTrue(quat.toPitchYawRoll().roll ~= Scalar.QuarterPi)
+        var quat = Quaternion(pitch: .quarterPi, yaw: 0, roll: 0)
+        XCTAssertTrue(quat.toPitchYawRoll().pitch ~= .quarterPi)
+        quat = Quaternion(pitch: 0, yaw: .quarterPi, roll: 0)
+        XCTAssertTrue(quat.toPitchYawRoll().yaw ~= .quarterPi)
+        quat = Quaternion(pitch: 0, yaw: 0, roll: .quarterPi)
+        XCTAssertTrue(quat.toPitchYawRoll().roll ~= .quarterPi)
 
     }
 }
@@ -197,10 +197,10 @@ class PerformanceTests: XCTestCase {
 
     func testMatrix3MultiplicationPerformance() {
 
-        let a = Matrix3(rotation: .HalfPi)
+        let a = Matrix3(rotation: .halfPi)
         var b = Matrix3(translation: Vector2(1, 10))
 
-        measureBlock {
+        measure {
             for _ in 0 ..< 100000 {
                 b = a * b
             }
@@ -209,10 +209,10 @@ class PerformanceTests: XCTestCase {
 
     func testMatrix4MultiplicationPerformance() {
 
-        let a = Matrix4(rotation: Vector4(1, 0, 0, .HalfPi))
+        let a = Matrix4(rotation: Vector4(1, 0, 0, .halfPi))
         var b = Matrix4(translation: Vector3(1, 10, 24))
 
-        measureBlock {
+        measure {
             for _ in 0 ..< 100000 {
                 b = a * b
             }

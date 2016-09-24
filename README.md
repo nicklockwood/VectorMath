@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/nicklockwood/VectorMath.svg)](https://travis-ci.org/nicklockwood/VectorMath)
+[![Travis](https://img.shields.io/travis/nicklockwood/VectorMath.svg?maxAge=2592000)](https://travis-ci.org/nicklockwood/VectorMath)
+[![License](https://img.shields.io/badge/license-zlib-lightgrey.svg?maxAge=2592000)](https://opensource.org/licenses/Zlib)
+[![Twitter](https://img.shields.io/badge/twitter-@nicklockwood-blue.svg?maxAge=2592000)](http://twitter.com/nicklockwood)
 
 
 Purpose
@@ -24,7 +26,7 @@ Many of the algorithms used in VectorMath were ported or adapted from the Kazmat
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 9.3, Mac OS 10.11 (Xcode 7.3, Apple LLVM compiler 7.1)
+* Supported build target - iOS 10.0, Mac OS 10.11 (Xcode 8.0, Apple LLVM compiler 8.0)
 * Earliest supported deployment target - iOS 8.0, Mac OS 10.10
 * Earliest compatible deployment target - iOS 7.0, Mac OS 10.9
 
@@ -69,44 +71,44 @@ Constants
 
 VectorMath declares a number of namespaced constants for your convenience. They are as follows:
 
-    Scalar.Pi
-    Scalar.HalfPi
-    Scalar.QuarterPi
-    Scalar.TwoPi
+    Scalar.pi
+    Scalar.halfPi
+    Scalar.quarterPi
+    Scalar.twoPi
 
 These should be self-explanatory.
 
-    Scalar.DegreesPerRadian
-    Scalar.RadiansPerDegree
+    Scalar.degreesPerRadian
+    Scalar.radiansPerDegree
 
-Conversion factors between degrees and radians. E.g. to convert 40 degrees to radians, you would say `let r = 40 * .DegreesPerRadian`, or to convert Pi/2 radians to degrees, say `let d = .HalfPi * .RadiansPerDegree`
+Conversion factors between degrees and radians. E.g. to convert 40 degrees to radians, you would say `let r = 40 * .degreesPerRadian`, or to convert Pi/2 radians to degrees, say `let d = .halfPi * .radiansPerDegree`
 
-    Scalar.Epsilon = 0.0001
+    Scalar.epsilon = 0.0001
 
 This is a floating point error value used by the approx-equal operator. You can change this if it's insufficiently (or excessively) precise for your needs.
 
-    Vector2.Zero
-    Vector3.Zero
-    Vector4.Zero
+    Vector2.zero
+    Vector3.zero
+    Vector4.zero
     Quaternion.Zero
 
 These are zero vector constants, useful as default values for vectors
 
-    Vector2.X
-    Vector2.Y
-    Vector3.X
-    Vector3.Y
-    Vector3.Z
-    Vector4.X
-    Vector4.Y
-    Vector4.Z
-    Vector4.W
+    Vector2.x
+    Vector2.y
+    Vector3.x
+    Vector3.y
+    Vector3.z
+    Vector4.x
+    Vector4.y
+    Vector4.z
+    Vector4.w
 
-These are unit vectors along various axes. For example Vector3.Z has the value `Vector3(0, 0, 1)`
+These are unit vectors along various axes. For example Vector3.z has the value `Vector3(0, 0, 1)`
 
-    Matrix3.Identity
-    Matrix4.Identity
-    Quaternion.Identity
+    Matrix3.identity
+    Matrix4.identity
+    Quaternion.identity
 
 These are identity matrices, which have the property that multiplying them by another matrix or vector has no effect.
 
@@ -127,9 +129,9 @@ The complete list of VectorMath properties and methods is given below. These are
         dot(Vector2) -> Scalar
         cross(Vector2) -> Scalar
         normalized() -> Vector2
-        rotatedBy(Scalar) -> Vector2
-        rotatedBy(Scalar, around: Vector2) -> Vector2
-        angleWith(Vector2) -> Scalar
+        rotated(by: Scalar) -> Vector2
+        rotated(by: Scalar, around: Vector2) -> Vector2
+        angleW(with: Vector2) -> Scalar
         interpolatedWith(Vector2, t: Scalar) -> Vector2
 
     Vector3
@@ -146,11 +148,12 @@ The complete list of VectorMath properties and methods is given below. These are
         dot(Vector3) -> Scalar
         cross(Vector3) -> Vector3
         normalized() -> Vector3
-        interpolatedWith(Vector3, t: Scalar) -> Vector3
+        interpolated(with: Vector3, by: Scalar) -> Vector3
 
     Vector4
         init(x: Scalar, y: Scalar, z: Scalar, w: Scalar)
         init(_: Scalar, _: Scalar, _: Scalar, _: Scalar)
+        init(_: Vector3, w: Scalar)
         init(_: [Scalar])
         lengthSquared: Scalar
         length: Scalar
@@ -160,9 +163,10 @@ The complete list of VectorMath properties and methods is given below. These are
         xz: Vector2
         yz: Vector2
         toArray() -> [Scalar]
+        toVector3() -> Vector3
         dot(Vector4) -> Scalar
         normalized() -> Vector4
-        interpolatedWith(Vector4, t: Scalar) -> Vector4
+        interpolated(with: Vector4, by: Scalar) -> Vector4
 
     Matrix3
         init(m11: Scalar, m12: Scalar, ... m33: Scalar)
@@ -176,7 +180,7 @@ The complete list of VectorMath properties and methods is given below. These are
         transpose: Matrix3
         inverse: Matrix3
         toArray() -> [Scalar]
-        interpolatedWith(Matrix3, t: Scalar) -> Matrix3
+        interpolated(with: Matrix3, by: Scalar) -> Matrix3
 
     Matrix4
         init(m11: Scalar, m12: Scalar, ... m33: Scalar)
@@ -195,7 +199,7 @@ The complete list of VectorMath properties and methods is given below. These are
         transpose: Matrix4
         inverse: Matrix4
         toArray() -> [Scalar]
-        interpolatedWith(Matrix3, t: Scalar) -> Matrix3
+        interpolated(with: Matrix3, by: Scalar) -> Matrix3
 
     Quaternion
         init(x: Scalar, y: Scalar, z: Scalar, w: Scalar)
@@ -216,7 +220,7 @@ The complete list of VectorMath properties and methods is given below. These are
         toArray() -> [Scalar]
         dot(Quaternion) -> Scalar
         normalized() -> Quaternion
-        interpolatedWith(Quaternion, t: Scalar) -> Quaternion
+        interpolated(with: Quaternion, by: Scalar) -> Quaternion
 
 
 Operators
@@ -233,6 +237,12 @@ Dot product, cross product and normalization are not available in operator form,
 
 Release notes
 ----------------
+
+Version 0.3
+
+- Updated for Swift 3
+- Added `init(_: Vector3, w: Scalar)` and `toVector3() -> Vector3` methods to Vector4
+- Renamed some methods and properties in accordance with modern conventions
 
 Version 0.2
  
