@@ -1,4 +1,4 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode8.3
 script: xcodebuild -project Tests/UnitTests.xcodeproj -scheme "iOS Tests" -sdk iphonesimulator
 

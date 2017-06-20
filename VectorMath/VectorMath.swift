@@ -2,7 +2,7 @@
 //  VectorMath.swift
 //  VectorMath
 //
-//  Version 0.3
+//  Version 0.3.1
 //
 //  Created by Nick Lockwood on 24/11/2014.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
@@ -31,10 +31,9 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-
 import Foundation
 
-//MARK: Types
+// MARK: Types
 
 public typealias Scalar = Float
 
@@ -94,25 +93,29 @@ public struct Quaternion {
     public var w: Scalar
 }
 
-//MARK: Scalar
+// MARK: Scalar
 
 public extension Scalar {
-    public static let pi = Scalar(M_PI)
-    public static let halfPi = Scalar(M_PI_2)
-    public static let quarterPi = Scalar(M_PI_4)
-    public static let twoPi = Scalar(M_PI * 2)
+    public static var pi = Scalar(3.14159265358979323846264338327950288419716939937510582)
+    public static let halfPi = pi / 2
+    public static let quarterPi = pi / 4
+    public static let twoPi = pi * 2
     public static let degreesPerRadian = 180 / pi
     public static let radiansPerDegree = pi / 180
     public static let epsilon: Scalar = 0.0001
     
     public static func ~=(lhs: Scalar, rhs: Scalar) -> Bool {
-        return abs(lhs - rhs) < .epsilon
+        return Swift.abs(lhs - rhs) < .epsilon
+    }
+
+    fileprivate var sign: Scalar {
+        return self > 0 ? 1 : -1
     }
 }
 
-//MARK: Vector2
+// MARK: Vector2
 
-extension Vector2: Equatable, Hashable {
+extension Vector2: Hashable {
     public static let zero = Vector2(0, 0)
     public static let x = Vector2(1, 0)
     public static let y = Vector2(0, 1)
@@ -233,9 +236,9 @@ extension Vector2: Equatable, Hashable {
     }
 }
 
-//MARK: Vector3
+// MARK: Vector3
 
-extension Vector3: Equatable, Hashable {
+extension Vector3: Hashable {
     public static let zero = Vector3(0, 0, 0)
     public static let x = Vector3(1, 0, 0)
     public static let y = Vector3(0, 1, 0)
@@ -261,7 +264,7 @@ extension Vector3: Equatable, Hashable {
         get {
             return Vector2(x, y)
         }
-        set (v) {
+        set(v) {
             x = v.x
             y = v.y
         }
@@ -271,7 +274,7 @@ extension Vector3: Equatable, Hashable {
         get {
             return Vector2(x, z)
         }
-        set (v) {
+        set(v) {
             x = v.x
             z = v.y
         }
@@ -281,7 +284,7 @@ extension Vector3: Equatable, Hashable {
         get {
             return Vector2(y, z)
         }
-        set (v) {
+        set(v) {
             y = v.x
             z = v.y
         }
@@ -315,7 +318,7 @@ extension Vector3: Equatable, Hashable {
         }
         return self / sqrt(lengthSquared)
     }
-
+    
     public func interpolated(with v: Vector3, by t: Scalar) -> Vector3 {
         return self + (v - self) * t
     }
@@ -380,9 +383,9 @@ extension Vector3: Equatable, Hashable {
     }
 }
 
-//MARK: Vector4
+// MARK: Vector4
 
-extension Vector4: Equatable, Hashable {
+extension Vector4: Hashable {
     public static let zero = Vector4(0, 0, 0, 0)
     public static let x = Vector4(1, 0, 0, 0)
     public static let y = Vector4(0, 1, 0, 0)
@@ -409,7 +412,7 @@ extension Vector4: Equatable, Hashable {
         get {
             return Vector3(x, y, z)
         }
-        set (v) {
+        set(v) {
             x = v.x
             y = v.y
             z = v.z
@@ -420,7 +423,7 @@ extension Vector4: Equatable, Hashable {
         get {
             return Vector2(x, y)
         }
-        set (v) {
+        set(v) {
             x = v.x
             y = v.y
         }
@@ -430,7 +433,7 @@ extension Vector4: Equatable, Hashable {
         get {
             return Vector2(x, z)
         }
-        set (v) {
+        set(v) {
             x = v.x
             z = v.y
         }
@@ -440,7 +443,7 @@ extension Vector4: Equatable, Hashable {
         get {
             return Vector2(y, z)
         }
-        set (v) {
+        set(v) {
             y = v.x
             z = v.y
         }
@@ -533,10 +536,10 @@ extension Vector4: Equatable, Hashable {
     }
 }
 
-//MARK: Matrix3
+// MARK: Matrix3
 
-extension Matrix3: Equatable, Hashable {
-    public static let identity = Matrix3(1, 0 ,0 ,0, 1, 0, 0, 0, 1)
+extension Matrix3: Hashable {
+    public static let identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1)
     
     public var hashValue: Int {
         var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue
@@ -546,9 +549,9 @@ extension Matrix3: Equatable, Hashable {
     }
     
     public init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar,
-        _ m21: Scalar, _ m22: Scalar, _ m23: Scalar,
-        _ m31: Scalar, _ m32: Scalar, _ m33: Scalar) {
-            
+                _ m21: Scalar, _ m22: Scalar, _ m23: Scalar,
+                _ m31: Scalar, _ m32: Scalar, _ m33: Scalar) {
+        
         self.m11 = m11 // 0
         self.m12 = m12 // 1
         self.m13 = m13 // 2
@@ -621,7 +624,7 @@ extension Matrix3: Equatable, Hashable {
     public var inverse: Matrix3 {
         return adjugate * (1 / determinant)
     }
-
+    
     public func interpolated(with m: Matrix3, by t: Scalar) -> Matrix3 {
         return Matrix3(
             m11 + (m.m11 - m11) * t,
@@ -697,10 +700,10 @@ extension Matrix3: Equatable, Hashable {
     }
 }
 
-//MARK: Matrix4
+// MARK: Matrix4
 
-extension Matrix4: Equatable, Hashable {
-    public static let identity = Matrix4(1, 0 ,0 ,0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+extension Matrix4: Hashable {
+    public static let identity = Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
     
     public var hashValue: Int {
         var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue &+ m14.hashValue
@@ -711,10 +714,10 @@ extension Matrix4: Equatable, Hashable {
     }
     
     public init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar, _ m14: Scalar,
-        _ m21: Scalar, _ m22: Scalar, _ m23: Scalar, _ m24: Scalar,
-        _ m31: Scalar, _ m32: Scalar, _ m33: Scalar, _ m34: Scalar,
-        _ m41: Scalar, _ m42: Scalar, _ m43: Scalar, _ m44: Scalar) {
-            
+                _ m21: Scalar, _ m22: Scalar, _ m23: Scalar, _ m24: Scalar,
+                _ m31: Scalar, _ m32: Scalar, _ m33: Scalar, _ m34: Scalar,
+                _ m41: Scalar, _ m42: Scalar, _ m43: Scalar, _ m44: Scalar) {
+        
         self.m11 = m11 // 0
         self.m12 = m12 // 1
         self.m13 = m13 // 2
@@ -1036,9 +1039,9 @@ extension Matrix4: Equatable, Hashable {
     }
 }
 
-//MARK: Quaternion
+// MARK: Quaternion
 
-extension Quaternion: Equatable, Hashable {
+extension Quaternion: Hashable {
     public static let zero = Quaternion(0, 0, 0, 0)
     public static let identity = Quaternion(0, 0, 0, 1)
     
@@ -1062,23 +1065,23 @@ extension Quaternion: Equatable, Hashable {
         get {
             return Vector3(x, y, z)
         }
-        set (v) {
+        set(v) {
             x = v.x
             y = v.y
             z = v.z
         }
     }
-    
+
     public var pitch: Scalar {
-        return atan2(2 * (y * z + w * x), w * w - x * x - y * y + z * z)
+        return asin(min(1, max(-1, 2 * (w * y - z * x))))
     }
-    
+
     public var yaw: Scalar {
-        return asin(-2 * (x * z - w * y))
+        return atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
     }
     
     public var roll: Scalar {
-        return atan2(2 * (x * y + w * z), w * w + x * x - y * y - z * z)
+        return atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y))
     }
     
     public init(_ x: Scalar, _ y: Scalar, _ z: Scalar, _ w: Scalar) {
@@ -1093,47 +1096,31 @@ extension Quaternion: Equatable, Hashable {
     }
     
     public init(pitch: Scalar, yaw: Scalar, roll: Scalar) {
-        let quatPitch = Quaternion(axisAngle: Vector4(1, 0, 0, pitch))
-        let quatYaw = Quaternion(axisAngle: Vector4(0, 1, 0, yaw))
-        let quatRoll = Quaternion(axisAngle: Vector4(0, 0, 1, roll))
-        self = quatPitch * quatYaw * quatRoll
+        let t0 = cos(yaw * 0.5)
+        let t1 = sin(yaw * 0.5)
+        let t2 = cos(roll * 0.5)
+        let t3 = sin(roll * 0.5)
+        let t4 = cos(pitch * 0.5)
+        let t5 = sin(pitch * 0.5)
+        self.init(
+            t0 * t3 * t4 - t1 * t2 * t5,
+            t0 * t2 * t5 + t1 * t3 * t4,
+            t1 * t2 * t4 - t0 * t3 * t5,
+            t0 * t2 * t4 + t1 * t3 * t5
+        )
     }
     
     public init(rotationMatrix m: Matrix4) {
-        let diagonal = m.m11 + m.m22 + m.m33 + 1
-        if diagonal ~= 0 {
-            let scale = sqrt(diagonal) * 2
-            self.init(
-                (m.m32 - m.m23) / scale,
-                (m.m13 - m.m31) / scale,
-                (m.m21 - m.m12) / scale,
-                0.25 * scale
-            )
-        } else if m.m11 > max(m.m22, m.m33) {
-            let scale = sqrt(1 + m.m11 - m.m22 - m.m33) * 2
-            self.init(
-                0.25 * scale,
-                (m.m21 + m.m12) / scale,
-                (m.m13 + m.m31) / scale,
-                (m.m32 - m.m23) / scale
-            )
-        } else if m.m22 > m.m33 {
-            let scale = sqrt(1 + m.m22 - m.m11 - m.m33) * 2
-            self.init(
-                (m.m21 + m.m12) / scale,
-                0.25 * scale,
-                (m.m32 + m.m23) / scale,
-                (m.m13 - m.m31) / scale
-            )
-        } else {
-            let scale = sqrt(1 + m.m33 - m.m11 - m.m22) * 2
-            self.init(
-                (m.m13 + m.m31) / scale,
-                (m.m32 + m.m23) / scale,
-                0.25 * scale,
-                (m.m21 - m.m12) / scale
-            )
-        }
+        let x = sqrt(max(0, 1 + m.m11 - m.m22 - m.m33)) / 2
+        let y = sqrt(max(0, 1 - m.m11 + m.m22 - m.m33)) / 2
+        let z = sqrt(max(0, 1 - m.m11 - m.m22 + m.m33)) / 2
+        let w = sqrt(max(0, 1 + m.m11 + m.m22 + m.m33)) / 2
+        self.init(
+            x * (x * (m.m32 - m.m23)).sign,
+            y * (y * (m.m13 - m.m31)).sign,
+            z * (z * (m.m21 - m.m12)).sign,
+            w
+        )
     }
     
     public init(_ v: [Scalar]) {

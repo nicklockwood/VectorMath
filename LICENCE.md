@@ -1,7 +1,5 @@
 VectorMath
 
-Version 0.3, September 24th, 2016
-
 Copyright (C) 2014 Charcoal Design
 
 This software is provided 'as-is', without any express or implied

@@ -2,7 +2,7 @@
 //  VectorMath+Quartz.swift
 //  VectorMath
 //
-//  Version 0.3
+//  Version 0.3.1
 //
 //  Created by Nick Lockwood on 24/11/2014.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
@@ -33,7 +33,7 @@
 
 import QuartzCore
 
-//MARK: SceneKit extensions
+// MARK: SceneKit extensions
 
 extension CGPoint {
     init(_ v: Vector2) {
@@ -74,7 +74,7 @@ extension CATransform3D {
     }
 }
 
-//MARK: VectorMath extensions
+// MARK: VectorMath extensions
 
 extension Vector2 {
     init(_ v: CGPoint) {

@@ -2,7 +2,7 @@
 //  VectorMath+SceneKit.swift
 //  VectorMath
 //
-//  Version 0.3
+//  Version 0.3.1
 //
 //  Created by Nick Lockwood on 24/11/2014.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
@@ -31,7 +31,7 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 typealias SCNFloat = Float
 #else
 typealias SCNFloat = CGFloat
@@ -39,7 +39,7 @@ typealias SCNFloat = CGFloat
 
 import SceneKit
 
-//MARK: SceneKit extensions
+// MARK: SceneKit extensions
 
 extension SCNVector3 {
     init(_ v: Vector3) {
@@ -69,12 +69,12 @@ extension SCNMatrix4 {
 #endif
 
 extension SCNQuaternion {
-    init(_ q:Quaternion) {
+    init(_ q: Quaternion) {
         self.init(x: SCNFloat(q.x), y: SCNFloat(q.y), z: SCNFloat(q.z), w: SCNFloat(q.w))
     }
 }
 
-//MARK: VectorMath extensions
+// MARK: VectorMath extensions
 
 extension Vector3 {
     init(_ v: SCNVector3) {

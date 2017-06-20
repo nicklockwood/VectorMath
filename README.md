@@ -26,7 +26,7 @@ Many of the algorithms used in VectorMath were ported or adapted from the Kazmat
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 10.0, Mac OS 10.11 (Xcode 8.0, Apple LLVM compiler 8.0)
+* Supported build target - iOS 10.0, Mac OS 10.12 (Xcode 8.3, Apple LLVM compiler 8.1)
 * Earliest supported deployment target - iOS 8.0, Mac OS 10.10
 * Earliest compatible deployment target - iOS 7.0, Mac OS 10.9
 
@@ -131,8 +131,8 @@ The complete list of VectorMath properties and methods is given below. These are
         normalized() -> Vector2
         rotated(by: Scalar) -> Vector2
         rotated(by: Scalar, around: Vector2) -> Vector2
-        angleW(with: Vector2) -> Scalar
-        interpolatedWith(Vector2, t: Scalar) -> Vector2
+        angle(with: Vector2) -> Scalar
+        interpolated(with: Vector2, by: Scalar) -> Vector2
 
     Vector3
         init(x: Scalar, y: Scalar, z: Scalar)
@@ -233,23 +233,3 @@ The *, /, +, - and == operators are implemented for most of the included types. 
 Unary minus is supported for inversion/negation on vectors and matrices.
 
 Dot product, cross product and normalization are not available in operator form, but are supplied as methods on the various types.
-
-
-Release notes
-----------------
-
-Version 0.3
-
-- Updated for Swift 3
-- Added `init(_: Vector3, w: Scalar)` and `toVector3() -> Vector3` methods to Vector4
-- Renamed some methods and properties in accordance with modern conventions
-
-Version 0.2
- 
-- Added Mac support
-- Fixed Vector4, Matrix4 multiplication bug
-- Fixed bug in `Quaternion(pitch:, yaw:, roll:)` initializer
- 
-Version 0.1
-
-- First release
