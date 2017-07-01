@@ -1,6 +1,6 @@
 {
   "name": "VectorMath",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": {
     "type": "zlib",
     "file": "LICENCE.md"
@@ -10,7 +10,7 @@
   "authors": "Nick Lockwood",
   "source": {
     "git": "https://github.com/nicklockwood/VectorMath.git",
-    "tag": "0.3.1"
+    "tag": "0.3.2"
   },
   "subspecs": [
     {
@@ -19,12 +19,14 @@
     },
     {
       "name": "Quartz",
-      "source_files": "VectorMath/VectorMath+Quartz.swift"
+      "source_files": "VectorMath/VectorMath+Quartz.swift",
+      "dependencies": { "VectorMath/Core": [] }
     },
     {
       "name": "SceneKit",
-      "source_files": "VectorMath/VectorMath+SceneKit.swift"
-    },
+      "source_files": "VectorMath/VectorMath+SceneKit.swift",
+      "dependencies": { "VectorMath/Core": [] }
+    }
   ],
   "platforms": {
     "ios": "9.0",

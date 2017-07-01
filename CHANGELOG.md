@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.3.2](https://github.com/nicklockwood/VectorMath/releases/tag/0.3.2) (2017-07-01)
+
+- Added Cocoapods subspecs for the Quartz and SceneKit extensions
+- Quartz and SceneKit extensions are now marked public
+
 ## [0.3.1](https://github.com/nicklockwood/VectorMath/releases/tag/0.3.1) (2017-06-20)
 
 - Fixed bugs in Quaternion `init(pitch:, yaw:, roll:)` and `init(rotationMatrix:)` constructors
