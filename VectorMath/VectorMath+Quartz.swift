@@ -35,25 +35,25 @@ import QuartzCore
 
 // MARK: SceneKit extensions
 
-extension CGPoint {
+public extension CGPoint {
     init(_ v: Vector2) {
         self.init(x: CGFloat(v.x), y: CGFloat(v.y))
     }
 }
 
-extension CGSize {
+public extension CGSize {
     init(_ v: Vector2) {
         self.init(width: CGFloat(v.x), height: CGFloat(v.y))
     }
 }
 
-extension CGVector {
+public extension CGVector {
     init(_ v: Vector2) {
         self.init(dx: CGFloat(v.x), dy: CGFloat(v.y))
     }
 }
 
-extension CGAffineTransform {
+public extension CGAffineTransform {
     init(_ m: Matrix3) {
         self.init(
             a: CGFloat(m.m11), b: CGFloat(m.m12),
@@ -63,7 +63,7 @@ extension CGAffineTransform {
     }
 }
 
-extension CATransform3D {
+public extension CATransform3D {
     init(_ m: Matrix4) {
         self.init(
             m11: CGFloat(m.m11), m12: CGFloat(m.m12), m13: CGFloat(m.m13), m14: CGFloat(m.m14),
@@ -76,7 +76,7 @@ extension CATransform3D {
 
 // MARK: VectorMath extensions
 
-extension Vector2 {
+public extension Vector2 {
     init(_ v: CGPoint) {
         self.init(x: Scalar(v.x), y: Scalar(v.y))
     }
@@ -90,7 +90,7 @@ extension Vector2 {
     }
 }
 
-extension Matrix3 {
+public extension Matrix3 {
     init(_ m: CGAffineTransform) {
         self.init(
             m11: Scalar(m.a), m12: Scalar(m.b), m13: 0,
@@ -100,7 +100,7 @@ extension Matrix3 {
     }
 }
 
-extension Matrix4 {
+public extension Matrix4 {
     init(_ m: CATransform3D) {
         self.init(
             m11: Scalar(m.m11), m12: Scalar(m.m12), m13: Scalar(m.m13), m14: Scalar(m.m14),

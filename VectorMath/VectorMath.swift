@@ -96,7 +96,6 @@ public struct Quaternion {
 // MARK: Scalar
 
 public extension Scalar {
-    public static var pi = Scalar(3.14159265358979323846264338327950288419716939937510582)
     public static let halfPi = pi / 2
     public static let quarterPi = pi / 4
     public static let twoPi = pi * 2
@@ -116,13 +115,15 @@ public extension Scalar {
 // MARK: Vector2
 
 extension Vector2: Hashable {
-    public static let zero = Vector2(0, 0)
-    public static let x = Vector2(1, 0)
-    public static let y = Vector2(0, 1)
-    
     public var hashValue: Int {
         return x.hashValue &+ y.hashValue
     }
+}
+
+public extension Vector2 {
+    public static let zero = Vector2(0, 0)
+    public static let x = Vector2(1, 0)
+    public static let y = Vector2(0, 1)
     
     public var lengthSquared: Scalar {
         return x * x + y * y
@@ -239,14 +240,16 @@ extension Vector2: Hashable {
 // MARK: Vector3
 
 extension Vector3: Hashable {
+    public var hashValue: Int {
+        return x.hashValue &+ y.hashValue &+ z.hashValue
+    }
+}
+
+public extension Vector3 {
     public static let zero = Vector3(0, 0, 0)
     public static let x = Vector3(1, 0, 0)
     public static let y = Vector3(0, 1, 0)
     public static let z = Vector3(0, 0, 1)
-    
-    public var hashValue: Int {
-        return x.hashValue &+ y.hashValue &+ z.hashValue
-    }
     
     public var lengthSquared: Scalar {
         return x * x + y * y + z * z
@@ -386,16 +389,18 @@ extension Vector3: Hashable {
 // MARK: Vector4
 
 extension Vector4: Hashable {
+    public var hashValue: Int {
+        return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
+    }
+}
+
+public extension Vector4 {
     public static let zero = Vector4(0, 0, 0, 0)
     public static let x = Vector4(1, 0, 0, 0)
     public static let y = Vector4(0, 1, 0, 0)
     public static let z = Vector4(0, 0, 1, 0)
     public static let w = Vector4(0, 0, 0, 1)
-    
-    public var hashValue: Int {
-        return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
-    }
-    
+
     public var lengthSquared: Scalar {
         return x * x + y * y + z * z + w * w
     }
@@ -539,15 +544,17 @@ extension Vector4: Hashable {
 // MARK: Matrix3
 
 extension Matrix3: Hashable {
-    public static let identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1)
-    
     public var hashValue: Int {
         var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue
         hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue
         hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue
         return hash
     }
-    
+}
+
+public extension Matrix3 {
+    public static let identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1)
+
     public init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar,
                 _ m21: Scalar, _ m22: Scalar, _ m23: Scalar,
                 _ m31: Scalar, _ m32: Scalar, _ m33: Scalar) {
@@ -703,8 +710,6 @@ extension Matrix3: Hashable {
 // MARK: Matrix4
 
 extension Matrix4: Hashable {
-    public static let identity = Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-    
     public var hashValue: Int {
         var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue &+ m14.hashValue
         hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue &+ m24.hashValue
@@ -712,7 +717,11 @@ extension Matrix4: Hashable {
         hash = hash &+ m41.hashValue &+ m42.hashValue &+ m43.hashValue &+ m44.hashValue
         return hash
     }
-    
+}
+
+public extension Matrix4 {
+    public static let identity = Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+
     public init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar, _ m14: Scalar,
                 _ m21: Scalar, _ m22: Scalar, _ m23: Scalar, _ m24: Scalar,
                 _ m31: Scalar, _ m32: Scalar, _ m33: Scalar, _ m34: Scalar,
@@ -1042,12 +1051,14 @@ extension Matrix4: Hashable {
 // MARK: Quaternion
 
 extension Quaternion: Hashable {
-    public static let zero = Quaternion(0, 0, 0, 0)
-    public static let identity = Quaternion(0, 0, 0, 1)
-    
     public var hashValue: Int {
         return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
     }
+}
+
+public extension Quaternion {
+    public static let zero = Quaternion(0, 0, 0, 0)
+    public static let identity = Quaternion(0, 0, 0, 1)
     
     public var lengthSquared: Scalar {
         return x * x + y * y + z * z + w * w
