@@ -12,7 +12,20 @@
     "git": "https://github.com/nicklockwood/VectorMath.git",
     "tag": "0.3.1"
   },
-  "source_files": "VectorMath",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "VectorMath/VectorMath.swift"
+    },
+    {
+      "name": "Quartz",
+      "source_files": "VectorMath/VectorMath+Quartz.swift"
+    },
+    {
+      "name": "SceneKit",
+      "source_files": "VectorMath/VectorMath+SceneKit.swift"
+    },
+  ],
   "platforms": {
     "ios": "9.0",
     "tvos": "9.0",
