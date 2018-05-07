@@ -31,6 +31,8 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
+#if canImport(QuartzCore)
+
 import QuartzCore
 
 // MARK: SceneKit extensions
@@ -110,3 +112,5 @@ public extension Matrix4 {
         )
     }
 }
+
+#endif

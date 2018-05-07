@@ -9,6 +9,10 @@
 import QuartzCore
 import XCTest
 
+#if SWIFT_PACKAGE
+@testable import VectorMath
+#endif
+
 class Vector2Tests: XCTestCase {
     
     func testRotatedBy() {

@@ -31,6 +31,8 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
+#if canImport(SceneKit)
+
 #if os(iOS) || os(tvOS)
 typealias SCNFloat = Float
 #else
@@ -108,3 +110,5 @@ public extension Quaternion {
         self.init(x: Scalar(q.x), y: Scalar(q.y), z: Scalar(q.z), w: Scalar(q.w))
     }
 }
+
+#endif
