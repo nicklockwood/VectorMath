@@ -1,8 +1,8 @@
 //
-//  VectorMathTests.swift
+//  QuartzTests.swift
 //  VectorMathTests
 //
-//  Created by Nick Lockwood on 24/11/2014.
+//  Created by Harlan Haskins on 7/5/2018.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
 //
 
