@@ -3,9 +3,6 @@ import XCTest
 extension Matrix3Tests {
     static let __allTests = [
         ("testMatrix3Multiplication", testMatrix3Multiplication),
-        ("testRotation", testRotation),
-        ("testScale", testScale),
-        ("testTranslation", testTranslation),
         ("testVector2Multiplication", testVector2Multiplication),
         ("testVector3Multiplication", testVector3Multiplication),
     ]
@@ -13,11 +10,7 @@ extension Matrix3Tests {
 
 extension Matrix4Tests {
     static let __allTests = [
-        ("testRotation", testRotation),
-        ("testRotationAndTranslation", testRotationAndTranslation),
-        ("testScale", testScale),
         ("testTransformationMatrixMultiplication", testTransformationMatrixMultiplication),
-        ("testTranslation", testTranslation),
     ]
 }
 

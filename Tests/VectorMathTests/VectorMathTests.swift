@@ -6,7 +6,10 @@
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
 //
 
+#if canImport(QuartzCore)
 import QuartzCore
+#endif
+
 import XCTest
 
 #if SWIFT_PACKAGE
@@ -40,7 +43,7 @@ class Vector2Tests: XCTestCase {
 }
 
 class Matrix3Tests: XCTestCase {
-    
+    #if canImport(QuartzCore)
     func testScale() {
         
         let transform = CGAffineTransform(scaleX: 0.3, y: 0.4)
@@ -67,6 +70,7 @@ class Matrix3Tests: XCTestCase {
         
         XCTAssertTrue(matrix ~= compare)
     }
+    #endif
     
     func testMatrix3Multiplication() {
         
@@ -101,6 +105,7 @@ class Matrix3Tests: XCTestCase {
 
 class Matrix4Tests: XCTestCase {
     
+    #if canImport(QuartzCore)
     func testScale() {
         
         let transform = CATransform3DMakeScale(0.3, 0.4, 0.5)
@@ -127,6 +132,7 @@ class Matrix4Tests: XCTestCase {
         
         XCTAssertTrue(matrix ~= compare)
     }
+    #endif
     
     func testRotationAndTranslation() {
         let point = Vector4(0.0, -1.0, 0.0, 1.0)
