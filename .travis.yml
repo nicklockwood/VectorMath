@@ -1,4 +1,16 @@
-language: objective-c
-osx_image: xcode8.3
-script: xcodebuild -project Tests/UnitTests.xcodeproj -scheme "iOS Tests" -sdk iphonesimulator
+env:
+  global:
+    - LC_CTYPE=en_US.UTF-8
+matrix:
+  include:
+    - os: osx
+      language: objective-c
+      osx_image: xcode9.3
+      script: xcodebuild -project Tests/UnitTests.xcodeproj -scheme "iOS Tests" -sdk iphonesimulator
+    - os: linux
+      language: generic
+      sudo: required
+      dist: trusty
+      install: eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+      script: swift test
 
