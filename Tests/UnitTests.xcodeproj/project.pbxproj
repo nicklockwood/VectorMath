@@ -16,6 +16,8 @@
 		01B6A6641A23F08000DA8FB3 /* VectorMath+SceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A6611A23F08000DA8FB3 /* VectorMath+SceneKit.swift */; };
 		01B6A6651A23F08000DA8FB3 /* VectorMath+Quartz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A6621A23F08000DA8FB3 /* VectorMath+Quartz.swift */; };
 		01B6A6661A23F08000DA8FB3 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B6A6631A23F08000DA8FB3 /* VectorMath.swift */; };
+		DC1BCD7320A0F26700B75CCA /* QuartzTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BCD7220A0F26600B75CCA /* QuartzTests.swift */; };
+		DC1BCD7420A0F26700B75CCA /* QuartzTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BCD7220A0F26600B75CCA /* QuartzTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,7 @@
 		01B6A6611A23F08000DA8FB3 /* VectorMath+SceneKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VectorMath+SceneKit.swift"; sourceTree = "<group>"; };
 		01B6A6621A23F08000DA8FB3 /* VectorMath+Quartz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VectorMath+Quartz.swift"; sourceTree = "<group>"; };
 		01B6A6631A23F08000DA8FB3 /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
+		DC1BCD7220A0F26600B75CCA /* QuartzTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuartzTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 		01B6A6531A23EF1400DA8FB3 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				DC1BCD7220A0F26600B75CCA /* QuartzTests.swift */,
 				01B6A6561A23EF1400DA8FB3 /* VectorMathTests.swift */,
 				01B6A6551A23EF1400DA8FB3 /* iOS-Info.plist */,
 				015FC9771CF6E72100C9A42A /* Mac-Info.plist */,
@@ -140,7 +144,7 @@
 					};
 					01B6A64F1A23EF1400DA8FB3 = {
 						CreatedOnToolsVersion = 6.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 						TestTargetID = 01B6A63A1A23EF1400DA8FB3;
 					};
 				};
@@ -191,6 +195,7 @@
 				015FC97C1CF6E8EA00C9A42A /* VectorMath+Quartz.swift in Sources */,
 				015FC97D1CF6E90400C9A42A /* VectorMath+SceneKit.swift in Sources */,
 				015FC9761CF6E6CA00C9A42A /* VectorMathTests.swift in Sources */,
+				DC1BCD7420A0F26700B75CCA /* QuartzTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +207,7 @@
 				01B6A6641A23F08000DA8FB3 /* VectorMath+SceneKit.swift in Sources */,
 				01B6A6651A23F08000DA8FB3 /* VectorMath+Quartz.swift in Sources */,
 				01B6A6571A23EF1400DA8FB3 /* VectorMathTests.swift in Sources */,
+				DC1BCD7320A0F26700B75CCA /* QuartzTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +352,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.charcoaldesign.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = iOSTests;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -362,7 +369,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.charcoaldesign.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = iOSTests;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
