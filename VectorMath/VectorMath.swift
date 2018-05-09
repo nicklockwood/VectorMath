@@ -37,25 +37,25 @@ import Foundation
 
 public typealias Scalar = Float
 
-public struct Vector2 {
+public struct Vector2: Hashable {
     public var x: Scalar
     public var y: Scalar
 }
 
-public struct Vector3 {
+public struct Vector3: Hashable {
     public var x: Scalar
     public var y: Scalar
     public var z: Scalar
 }
 
-public struct Vector4 {
+public struct Vector4: Hashable {
     public var x: Scalar
     public var y: Scalar
     public var z: Scalar
     public var w: Scalar
 }
 
-public struct Matrix3 {
+public struct Matrix3: Hashable {
     public var m11: Scalar
     public var m12: Scalar
     public var m13: Scalar
@@ -67,7 +67,7 @@ public struct Matrix3 {
     public var m33: Scalar
 }
 
-public struct Matrix4 {
+public struct Matrix4: Hashable {
     public var m11: Scalar
     public var m12: Scalar
     public var m13: Scalar
@@ -86,7 +86,7 @@ public struct Matrix4 {
     public var m44: Scalar
 }
 
-public struct Quaternion {
+public struct Quaternion: Hashable {
     public var x: Scalar
     public var y: Scalar
     public var z: Scalar
@@ -113,12 +113,6 @@ public extension Scalar {
 }
 
 // MARK: Vector2
-
-extension Vector2: Hashable {
-    public var hashValue: Int {
-        return x.hashValue &+ y.hashValue
-    }
-}
 
 public extension Vector2 {
     public static let zero = Vector2(0, 0)
@@ -228,22 +222,12 @@ public extension Vector2 {
         return Vector2(lhs.x / rhs, lhs.y / rhs)
     }
 
-    public static func == (lhs: Vector2, rhs: Vector2) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y
-    }
-
     public static func ~= (lhs: Vector2, rhs: Vector2) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y
     }
 }
 
 // MARK: Vector3
-
-extension Vector3: Hashable {
-    public var hashValue: Int {
-        return x.hashValue &+ y.hashValue &+ z.hashValue
-    }
-}
 
 public extension Vector3 {
     public static let zero = Vector3(0, 0, 0)
@@ -377,22 +361,12 @@ public extension Vector3 {
         return Vector3(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs)
     }
 
-    public static func == (lhs: Vector3, rhs: Vector3) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z
-    }
-
     public static func ~= (lhs: Vector3, rhs: Vector3) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y && lhs.z ~= rhs.z
     }
 }
 
 // MARK: Vector4
-
-extension Vector4: Hashable {
-    public var hashValue: Int {
-        return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
-    }
-}
 
 public extension Vector4 {
     public static let zero = Vector4(0, 0, 0, 0)
@@ -532,25 +506,12 @@ public extension Vector4 {
         return Vector4(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs)
     }
 
-    public static func == (lhs: Vector4, rhs: Vector4) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w
-    }
-
     public static func ~= (lhs: Vector4, rhs: Vector4) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y && lhs.z ~= rhs.z && lhs.w ~= rhs.w
     }
 }
 
 // MARK: Matrix3
-
-extension Matrix3: Hashable {
-    public var hashValue: Int {
-        var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue
-        hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue
-        hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue
-        return hash
-    }
-}
 
 public extension Matrix3 {
     public static let identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1)
@@ -679,19 +640,6 @@ public extension Matrix3 {
         )
     }
 
-    public static func == (lhs: Matrix3, rhs: Matrix3) -> Bool {
-        if lhs.m11 != rhs.m11 { return false }
-        if lhs.m12 != rhs.m12 { return false }
-        if lhs.m13 != rhs.m13 { return false }
-        if lhs.m21 != rhs.m21 { return false }
-        if lhs.m22 != rhs.m22 { return false }
-        if lhs.m23 != rhs.m23 { return false }
-        if lhs.m31 != rhs.m31 { return false }
-        if lhs.m32 != rhs.m32 { return false }
-        if lhs.m33 != rhs.m33 { return false }
-        return true
-    }
-
     public static func ~= (lhs: Matrix3, rhs: Matrix3) -> Bool {
         if !(lhs.m11 ~= rhs.m11) { return false }
         if !(lhs.m12 ~= rhs.m12) { return false }
@@ -707,16 +655,6 @@ public extension Matrix3 {
 }
 
 // MARK: Matrix4
-
-extension Matrix4: Hashable {
-    public var hashValue: Int {
-        var hash = m11.hashValue &+ m12.hashValue &+ m13.hashValue &+ m14.hashValue
-        hash = hash &+ m21.hashValue &+ m22.hashValue &+ m23.hashValue &+ m24.hashValue
-        hash = hash &+ m31.hashValue &+ m32.hashValue &+ m33.hashValue &+ m34.hashValue
-        hash = hash &+ m41.hashValue &+ m42.hashValue &+ m43.hashValue &+ m44.hashValue
-        return hash
-    }
-}
 
 public extension Matrix4 {
     public static let identity = Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
@@ -1005,26 +943,6 @@ public extension Matrix4 {
         )
     }
 
-    public static func == (lhs: Matrix4, rhs: Matrix4) -> Bool {
-        if lhs.m11 != rhs.m11 { return false }
-        if lhs.m12 != rhs.m12 { return false }
-        if lhs.m13 != rhs.m13 { return false }
-        if lhs.m14 != rhs.m14 { return false }
-        if lhs.m21 != rhs.m21 { return false }
-        if lhs.m22 != rhs.m22 { return false }
-        if lhs.m23 != rhs.m23 { return false }
-        if lhs.m24 != rhs.m24 { return false }
-        if lhs.m31 != rhs.m31 { return false }
-        if lhs.m32 != rhs.m32 { return false }
-        if lhs.m33 != rhs.m33 { return false }
-        if lhs.m34 != rhs.m34 { return false }
-        if lhs.m41 != rhs.m41 { return false }
-        if lhs.m42 != rhs.m42 { return false }
-        if lhs.m43 != rhs.m43 { return false }
-        if lhs.m44 != rhs.m44 { return false }
-        return true
-    }
-
     public static func ~= (lhs: Matrix4, rhs: Matrix4) -> Bool {
         if !(lhs.m11 ~= rhs.m11) { return false }
         if !(lhs.m12 ~= rhs.m12) { return false }
@@ -1047,12 +965,6 @@ public extension Matrix4 {
 }
 
 // MARK: Quaternion
-
-extension Quaternion: Hashable {
-    public var hashValue: Int {
-        return x.hashValue &+ y.hashValue &+ z.hashValue &+ w.hashValue
-    }
-}
 
 public extension Quaternion {
     public static let zero = Quaternion(0, 0, 0, 0)
@@ -1213,10 +1125,6 @@ public extension Quaternion {
 
     public static func / (lhs: Quaternion, rhs: Scalar) -> Quaternion {
         return Quaternion(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs)
-    }
-
-    public static func == (lhs: Quaternion, rhs: Quaternion) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z && lhs.w == rhs.w
     }
 
     public static func ~= (lhs: Quaternion, rhs: Quaternion) -> Bool {
