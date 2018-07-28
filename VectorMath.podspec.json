@@ -26,6 +26,11 @@
       "name": "SceneKit",
       "source_files": "VectorMath/VectorMath+SceneKit.swift",
       "dependencies": { "VectorMath/Core": [] }
+    },
+    {
+      "name": "MapKit",
+      "source_files": "VectorMath/VectorMath+MapKit.swift",
+      "dependencies": { "VectorMath/Core": [] }
     }
   ],
   "platforms": {
