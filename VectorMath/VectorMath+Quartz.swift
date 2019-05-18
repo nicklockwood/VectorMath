@@ -2,7 +2,7 @@
 //  VectorMath+Quartz.swift
 //  VectorMath
 //
-//  Version 0.3.3
+//  Version 0.4.0
 //
 //  Created by Nick Lockwood on 24/11/2014.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.

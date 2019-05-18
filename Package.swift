@@ -1,4 +1,4 @@
-// swift-tools-version:4.1
+// swift-tools-version:4.2
 
 import PackageDescription
 
@@ -7,16 +7,19 @@ let package = Package(
     products: [
         .library(
             name: "VectorMath",
-            targets: ["VectorMath"]),
+            targets: ["VectorMath"]
+        ),
     ],
     dependencies: [],
     targets: [
         .target(
             name: "VectorMath",
             dependencies: [],
-            path: "VectorMath"),
+            path: "VectorMath"
+        ),
         .testTarget(
             name: "VectorMathTests",
-            dependencies: ["VectorMath"]),
+            dependencies: ["VectorMath"]
+        ),
     ]
 )

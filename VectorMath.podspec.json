@@ -1,16 +1,16 @@
 {
   "name": "VectorMath",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "license": {
     "type": "zlib",
-    "file": "LICENCE.md"
+    "file": "LICENSE.md"
   },
   "summary": "Vector math library for Mac and iOS",
   "homepage": "https://github.com/nicklockwood/VectorMath",
   "authors": "Nick Lockwood",
   "source": {
     "git": "https://github.com/nicklockwood/VectorMath.git",
-    "tag": "0.3.3"
+    "tag": "0.4.0"
   },
   "subspecs": [
     {

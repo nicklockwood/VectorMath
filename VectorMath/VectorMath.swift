@@ -2,7 +2,7 @@
 //  VectorMath.swift
 //  VectorMath
 //
-//  Version 0.3.3
+//  Version 0.4.0
 //
 //  Created by Nick Lockwood on 24/11/2014.
 //  Copyright (c) 2014 Nick Lockwood. All rights reserved.
@@ -96,14 +96,14 @@ public struct Quaternion: Hashable {
 // MARK: Scalar
 
 public extension Scalar {
-    public static let halfPi = pi / 2
-    public static let quarterPi = pi / 4
-    public static let twoPi = pi * 2
-    public static let degreesPerRadian = 180 / pi
-    public static let radiansPerDegree = pi / 180
-    public static let epsilon: Scalar = 0.0001
+    static let halfPi = pi / 2
+    static let quarterPi = pi / 4
+    static let twoPi = pi * 2
+    static let degreesPerRadian = 180 / pi
+    static let radiansPerDegree = pi / 180
+    static let epsilon: Scalar = 0.0001
 
-    public static func ~= (lhs: Scalar, rhs: Scalar) -> Bool {
+    static func ~= (lhs: Scalar, rhs: Scalar) -> Bool {
         return Swift.abs(lhs - rhs) < .epsilon
     }
 
@@ -115,44 +115,44 @@ public extension Scalar {
 // MARK: Vector2
 
 public extension Vector2 {
-    public static let zero = Vector2(0, 0)
-    public static let x = Vector2(1, 0)
-    public static let y = Vector2(0, 1)
+    static let zero = Vector2(0, 0)
+    static let x = Vector2(1, 0)
+    static let y = Vector2(0, 1)
 
-    public var lengthSquared: Scalar {
+    var lengthSquared: Scalar {
         return x * x + y * y
     }
 
-    public var length: Scalar {
+    var length: Scalar {
         return sqrt(lengthSquared)
     }
 
-    public var inverse: Vector2 {
+    var inverse: Vector2 {
         return -self
     }
 
-    public init(_ x: Scalar, _ y: Scalar) {
+    init(_ x: Scalar, _ y: Scalar) {
         self.init(x: x, y: y)
     }
 
-    public init(_ v: [Scalar]) {
+    init(_ v: [Scalar]) {
         assert(v.count == 2, "array must contain 2 elements, contained \(v.count)")
         self.init(v[0], v[1])
     }
 
-    public func toArray() -> [Scalar] {
+    func toArray() -> [Scalar] {
         return [x, y]
     }
 
-    public func dot(_ v: Vector2) -> Scalar {
+    func dot(_ v: Vector2) -> Scalar {
         return x * v.x + y * v.y
     }
 
-    public func cross(_ v: Vector2) -> Scalar {
+    func cross(_ v: Vector2) -> Scalar {
         return x * v.y - y * v.x
     }
 
-    public func normalized() -> Vector2 {
+    func normalized() -> Vector2 {
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -160,17 +160,17 @@ public extension Vector2 {
         return self / sqrt(lengthSquared)
     }
 
-    public func rotated(by radians: Scalar) -> Vector2 {
+    func rotated(by radians: Scalar) -> Vector2 {
         let cs = cos(radians)
         let sn = sin(radians)
         return Vector2(x * cs - y * sn, x * sn + y * cs)
     }
 
-    public func rotated(by radians: Scalar, around pivot: Vector2) -> Vector2 {
+    func rotated(by radians: Scalar, around pivot: Vector2) -> Vector2 {
         return (self - pivot).rotated(by: radians) + pivot
     }
 
-    public func angle(with v: Vector2) -> Scalar {
+    func angle(with v: Vector2) -> Scalar {
         if self == v {
             return 0
         }
@@ -183,46 +183,46 @@ public extension Vector2 {
         return atan2(cross, dot)
     }
 
-    public func interpolated(with v: Vector2, by t: Scalar) -> Vector2 {
+    func interpolated(with v: Vector2, by t: Scalar) -> Vector2 {
         return self + (v - self) * t
     }
 
-    public static prefix func - (v: Vector2) -> Vector2 {
+    static prefix func - (v: Vector2) -> Vector2 {
         return Vector2(-v.x, -v.y)
     }
 
-    public static func + (lhs: Vector2, rhs: Vector2) -> Vector2 {
+    static func + (lhs: Vector2, rhs: Vector2) -> Vector2 {
         return Vector2(lhs.x + rhs.x, lhs.y + rhs.y)
     }
 
-    public static func - (lhs: Vector2, rhs: Vector2) -> Vector2 {
+    static func - (lhs: Vector2, rhs: Vector2) -> Vector2 {
         return Vector2(lhs.x - rhs.x, lhs.y - rhs.y)
     }
 
-    public static func * (lhs: Vector2, rhs: Vector2) -> Vector2 {
+    static func * (lhs: Vector2, rhs: Vector2) -> Vector2 {
         return Vector2(lhs.x * rhs.x, lhs.y * rhs.y)
     }
 
-    public static func * (lhs: Vector2, rhs: Scalar) -> Vector2 {
+    static func * (lhs: Vector2, rhs: Scalar) -> Vector2 {
         return Vector2(lhs.x * rhs, lhs.y * rhs)
     }
 
-    public static func * (lhs: Vector2, rhs: Matrix3) -> Vector2 {
+    static func * (lhs: Vector2, rhs: Matrix3) -> Vector2 {
         return Vector2(
             lhs.x * rhs.m11 + lhs.y * rhs.m21 + rhs.m31,
             lhs.x * rhs.m12 + lhs.y * rhs.m22 + rhs.m32
         )
     }
 
-    public static func / (lhs: Vector2, rhs: Vector2) -> Vector2 {
+    static func / (lhs: Vector2, rhs: Vector2) -> Vector2 {
         return Vector2(lhs.x / rhs.x, lhs.y / rhs.y)
     }
 
-    public static func / (lhs: Vector2, rhs: Scalar) -> Vector2 {
+    static func / (lhs: Vector2, rhs: Scalar) -> Vector2 {
         return Vector2(lhs.x / rhs, lhs.y / rhs)
     }
 
-    public static func ~= (lhs: Vector2, rhs: Vector2) -> Bool {
+    static func ~= (lhs: Vector2, rhs: Vector2) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y
     }
 }
@@ -230,24 +230,24 @@ public extension Vector2 {
 // MARK: Vector3
 
 public extension Vector3 {
-    public static let zero = Vector3(0, 0, 0)
-    public static let x = Vector3(1, 0, 0)
-    public static let y = Vector3(0, 1, 0)
-    public static let z = Vector3(0, 0, 1)
+    static let zero = Vector3(0, 0, 0)
+    static let x = Vector3(1, 0, 0)
+    static let y = Vector3(0, 1, 0)
+    static let z = Vector3(0, 0, 1)
 
-    public var lengthSquared: Scalar {
+    var lengthSquared: Scalar {
         return x * x + y * y + z * z
     }
 
-    public var length: Scalar {
+    var length: Scalar {
         return sqrt(lengthSquared)
     }
 
-    public var inverse: Vector3 {
+    var inverse: Vector3 {
         return -self
     }
 
-    public var xy: Vector2 {
+    var xy: Vector2 {
         get {
             return Vector2(x, y)
         }
@@ -257,7 +257,7 @@ public extension Vector3 {
         }
     }
 
-    public var xz: Vector2 {
+    var xz: Vector2 {
         get {
             return Vector2(x, z)
         }
@@ -267,7 +267,7 @@ public extension Vector3 {
         }
     }
 
-    public var yz: Vector2 {
+    var yz: Vector2 {
         get {
             return Vector2(y, z)
         }
@@ -277,28 +277,28 @@ public extension Vector3 {
         }
     }
 
-    public init(_ x: Scalar, _ y: Scalar, _ z: Scalar) {
+    init(_ x: Scalar, _ y: Scalar, _ z: Scalar) {
         self.init(x: x, y: y, z: z)
     }
 
-    public init(_ v: [Scalar]) {
+    init(_ v: [Scalar]) {
         assert(v.count == 3, "array must contain 3 elements, contained \(v.count)")
         self.init(v[0], v[1], v[2])
     }
 
-    public func toArray() -> [Scalar] {
+    func toArray() -> [Scalar] {
         return [x, y, z]
     }
 
-    public func dot(_ v: Vector3) -> Scalar {
+    func dot(_ v: Vector3) -> Scalar {
         return x * v.x + y * v.y + z * v.z
     }
 
-    public func cross(_ v: Vector3) -> Vector3 {
+    func cross(_ v: Vector3) -> Vector3 {
         return Vector3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x)
     }
 
-    public func normalized() -> Vector3 {
+    func normalized() -> Vector3 {
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -306,31 +306,31 @@ public extension Vector3 {
         return self / sqrt(lengthSquared)
     }
 
-    public func interpolated(with v: Vector3, by t: Scalar) -> Vector3 {
+    func interpolated(with v: Vector3, by t: Scalar) -> Vector3 {
         return self + (v - self) * t
     }
 
-    public static prefix func - (v: Vector3) -> Vector3 {
+    static prefix func - (v: Vector3) -> Vector3 {
         return Vector3(-v.x, -v.y, -v.z)
     }
 
-    public static func + (lhs: Vector3, rhs: Vector3) -> Vector3 {
+    static func + (lhs: Vector3, rhs: Vector3) -> Vector3 {
         return Vector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
     }
 
-    public static func - (lhs: Vector3, rhs: Vector3) -> Vector3 {
+    static func - (lhs: Vector3, rhs: Vector3) -> Vector3 {
         return Vector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z)
     }
 
-    public static func * (lhs: Vector3, rhs: Vector3) -> Vector3 {
+    static func * (lhs: Vector3, rhs: Vector3) -> Vector3 {
         return Vector3(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z)
     }
 
-    public static func * (lhs: Vector3, rhs: Scalar) -> Vector3 {
+    static func * (lhs: Vector3, rhs: Scalar) -> Vector3 {
         return Vector3(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs)
     }
 
-    public static func * (lhs: Vector3, rhs: Matrix3) -> Vector3 {
+    static func * (lhs: Vector3, rhs: Matrix3) -> Vector3 {
         return Vector3(
             lhs.x * rhs.m11 + lhs.y * rhs.m21 + lhs.z * rhs.m31,
             lhs.x * rhs.m12 + lhs.y * rhs.m22 + lhs.z * rhs.m32,
@@ -338,7 +338,7 @@ public extension Vector3 {
         )
     }
 
-    public static func * (lhs: Vector3, rhs: Matrix4) -> Vector3 {
+    static func * (lhs: Vector3, rhs: Matrix4) -> Vector3 {
         return Vector3(
             lhs.x * rhs.m11 + lhs.y * rhs.m21 + lhs.z * rhs.m31 + rhs.m41,
             lhs.x * rhs.m12 + lhs.y * rhs.m22 + lhs.z * rhs.m32 + rhs.m42,
@@ -346,22 +346,22 @@ public extension Vector3 {
         )
     }
 
-    public static func * (v: Vector3, q: Quaternion) -> Vector3 {
+    static func * (v: Vector3, q: Quaternion) -> Vector3 {
         let qv = q.xyz
         let uv = qv.cross(v)
         let uuv = qv.cross(uv)
         return v + (uv * 2 * q.w) + (uuv * 2)
     }
 
-    public static func / (lhs: Vector3, rhs: Vector3) -> Vector3 {
+    static func / (lhs: Vector3, rhs: Vector3) -> Vector3 {
         return Vector3(lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z)
     }
 
-    public static func / (lhs: Vector3, rhs: Scalar) -> Vector3 {
+    static func / (lhs: Vector3, rhs: Scalar) -> Vector3 {
         return Vector3(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs)
     }
 
-    public static func ~= (lhs: Vector3, rhs: Vector3) -> Bool {
+    static func ~= (lhs: Vector3, rhs: Vector3) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y && lhs.z ~= rhs.z
     }
 }
@@ -369,25 +369,25 @@ public extension Vector3 {
 // MARK: Vector4
 
 public extension Vector4 {
-    public static let zero = Vector4(0, 0, 0, 0)
-    public static let x = Vector4(1, 0, 0, 0)
-    public static let y = Vector4(0, 1, 0, 0)
-    public static let z = Vector4(0, 0, 1, 0)
-    public static let w = Vector4(0, 0, 0, 1)
+    static let zero = Vector4(0, 0, 0, 0)
+    static let x = Vector4(1, 0, 0, 0)
+    static let y = Vector4(0, 1, 0, 0)
+    static let z = Vector4(0, 0, 1, 0)
+    static let w = Vector4(0, 0, 0, 1)
 
-    public var lengthSquared: Scalar {
+    var lengthSquared: Scalar {
         return x * x + y * y + z * z + w * w
     }
 
-    public var length: Scalar {
+    var length: Scalar {
         return sqrt(lengthSquared)
     }
 
-    public var inverse: Vector4 {
+    var inverse: Vector4 {
         return -self
     }
 
-    public var xyz: Vector3 {
+    var xyz: Vector3 {
         get {
             return Vector3(x, y, z)
         }
@@ -398,7 +398,7 @@ public extension Vector4 {
         }
     }
 
-    public var xy: Vector2 {
+    var xy: Vector2 {
         get {
             return Vector2(x, y)
         }
@@ -408,7 +408,7 @@ public extension Vector4 {
         }
     }
 
-    public var xz: Vector2 {
+    var xz: Vector2 {
         get {
             return Vector2(x, z)
         }
@@ -418,7 +418,7 @@ public extension Vector4 {
         }
     }
 
-    public var yz: Vector2 {
+    var yz: Vector2 {
         get {
             return Vector2(y, z)
         }
@@ -428,24 +428,24 @@ public extension Vector4 {
         }
     }
 
-    public init(_ x: Scalar, _ y: Scalar, _ z: Scalar, _ w: Scalar) {
+    init(_ x: Scalar, _ y: Scalar, _ z: Scalar, _ w: Scalar) {
         self.init(x: x, y: y, z: z, w: w)
     }
 
-    public init(_ v: [Scalar]) {
+    init(_ v: [Scalar]) {
         assert(v.count == 4, "array must contain 4 elements, contained \(v.count)")
         self.init(v[0], v[1], v[2], v[3])
     }
 
-    public init(_ v: Vector3, w: Scalar) {
+    init(_ v: Vector3, w: Scalar) {
         self.init(v.x, v.y, v.z, w)
     }
 
-    public func toArray() -> [Scalar] {
+    func toArray() -> [Scalar] {
         return [x, y, z, w]
     }
 
-    public func toVector3() -> Vector3 {
+    func toVector3() -> Vector3 {
         if w ~= 0 {
             return xyz
         } else {
@@ -453,11 +453,11 @@ public extension Vector4 {
         }
     }
 
-    public func dot(_ v: Vector4) -> Scalar {
+    func dot(_ v: Vector4) -> Scalar {
         return x * v.x + y * v.y + z * v.z + w * v.w
     }
 
-    public func normalized() -> Vector4 {
+    func normalized() -> Vector4 {
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -465,31 +465,31 @@ public extension Vector4 {
         return self / sqrt(lengthSquared)
     }
 
-    public func interpolated(with v: Vector4, by t: Scalar) -> Vector4 {
+    func interpolated(with v: Vector4, by t: Scalar) -> Vector4 {
         return self + (v - self) * t
     }
 
-    public static prefix func - (v: Vector4) -> Vector4 {
+    static prefix func - (v: Vector4) -> Vector4 {
         return Vector4(-v.x, -v.y, -v.z, -v.w)
     }
 
-    public static func + (lhs: Vector4, rhs: Vector4) -> Vector4 {
+    static func + (lhs: Vector4, rhs: Vector4) -> Vector4 {
         return Vector4(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w)
     }
 
-    public static func - (lhs: Vector4, rhs: Vector4) -> Vector4 {
+    static func - (lhs: Vector4, rhs: Vector4) -> Vector4 {
         return Vector4(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w)
     }
 
-    public static func * (lhs: Vector4, rhs: Vector4) -> Vector4 {
+    static func * (lhs: Vector4, rhs: Vector4) -> Vector4 {
         return Vector4(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w)
     }
 
-    public static func * (lhs: Vector4, rhs: Scalar) -> Vector4 {
+    static func * (lhs: Vector4, rhs: Scalar) -> Vector4 {
         return Vector4(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs)
     }
 
-    public static func * (lhs: Vector4, rhs: Matrix4) -> Vector4 {
+    static func * (lhs: Vector4, rhs: Matrix4) -> Vector4 {
         return Vector4(
             lhs.x * rhs.m11 + lhs.y * rhs.m21 + lhs.z * rhs.m31 + lhs.w * rhs.m41,
             lhs.x * rhs.m12 + lhs.y * rhs.m22 + lhs.z * rhs.m32 + lhs.w * rhs.m42,
@@ -498,15 +498,15 @@ public extension Vector4 {
         )
     }
 
-    public static func / (lhs: Vector4, rhs: Vector4) -> Vector4 {
+    static func / (lhs: Vector4, rhs: Vector4) -> Vector4 {
         return Vector4(lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z, lhs.w / rhs.w)
     }
 
-    public static func / (lhs: Vector4, rhs: Scalar) -> Vector4 {
+    static func / (lhs: Vector4, rhs: Scalar) -> Vector4 {
         return Vector4(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs)
     }
 
-    public static func ~= (lhs: Vector4, rhs: Vector4) -> Bool {
+    static func ~= (lhs: Vector4, rhs: Vector4) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y && lhs.z ~= rhs.z && lhs.w ~= rhs.w
     }
 }
@@ -514,11 +514,11 @@ public extension Vector4 {
 // MARK: Matrix3
 
 public extension Matrix3 {
-    public static let identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1)
+    static let identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1)
 
-    public init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar,
-                _ m21: Scalar, _ m22: Scalar, _ m23: Scalar,
-                _ m31: Scalar, _ m32: Scalar, _ m33: Scalar) {
+    init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar,
+         _ m21: Scalar, _ m22: Scalar, _ m23: Scalar,
+         _ m31: Scalar, _ m32: Scalar, _ m33: Scalar) {
         self.m11 = m11 // 0
         self.m12 = m12 // 1
         self.m13 = m13 // 2
@@ -530,7 +530,7 @@ public extension Matrix3 {
         self.m33 = m33 // 8
     }
 
-    public init(scale: Vector2) {
+    init(scale: Vector2) {
         self.init(
             scale.x, 0, 0,
             0, scale.y, 0,
@@ -538,7 +538,7 @@ public extension Matrix3 {
         )
     }
 
-    public init(translation: Vector2) {
+    init(translation: Vector2) {
         self.init(
             1, 0, 0,
             0, 1, 0,
@@ -546,7 +546,7 @@ public extension Matrix3 {
         )
     }
 
-    public init(rotation radians: Scalar) {
+    init(rotation radians: Scalar) {
         let cs = cos(radians)
         let sn = sin(radians)
         self.init(
@@ -556,16 +556,16 @@ public extension Matrix3 {
         )
     }
 
-    public init(_ m: [Scalar]) {
+    init(_ m: [Scalar]) {
         assert(m.count == 9, "array must contain 9 elements, contained \(m.count)")
         self.init(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8])
     }
 
-    public func toArray() -> [Scalar] {
+    func toArray() -> [Scalar] {
         return [m11, m12, m13, m21, m22, m23, m31, m32, m33]
     }
 
-    public var adjugate: Matrix3 {
+    var adjugate: Matrix3 {
         return Matrix3(
             m22 * m33 - m23 * m32,
             m13 * m32 - m12 * m33,
@@ -579,20 +579,20 @@ public extension Matrix3 {
         )
     }
 
-    public var determinant: Scalar {
+    var determinant: Scalar {
         return (m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32)
             - (m13 * m22 * m31 + m11 * m23 * m32 + m12 * m21 * m33)
     }
 
-    public var transpose: Matrix3 {
+    var transpose: Matrix3 {
         return Matrix3(m11, m21, m31, m12, m22, m32, m13, m23, m33)
     }
 
-    public var inverse: Matrix3 {
+    var inverse: Matrix3 {
         return adjugate * (1 / determinant)
     }
 
-    public func interpolated(with m: Matrix3, by t: Scalar) -> Matrix3 {
+    func interpolated(with m: Matrix3, by t: Scalar) -> Matrix3 {
         return Matrix3(
             m11 + (m.m11 - m11) * t,
             m12 + (m.m12 - m12) * t,
@@ -606,11 +606,11 @@ public extension Matrix3 {
         )
     }
 
-    public static prefix func - (m: Matrix3) -> Matrix3 {
+    static prefix func - (m: Matrix3) -> Matrix3 {
         return m.inverse
     }
 
-    public static func * (lhs: Matrix3, rhs: Matrix3) -> Matrix3 {
+    static func * (lhs: Matrix3, rhs: Matrix3) -> Matrix3 {
         return Matrix3(
             lhs.m11 * rhs.m11 + lhs.m21 * rhs.m12 + lhs.m31 * rhs.m13,
             lhs.m12 * rhs.m11 + lhs.m22 * rhs.m12 + lhs.m32 * rhs.m13,
@@ -624,15 +624,15 @@ public extension Matrix3 {
         )
     }
 
-    public static func * (lhs: Matrix3, rhs: Vector2) -> Vector2 {
+    static func * (lhs: Matrix3, rhs: Vector2) -> Vector2 {
         return rhs * lhs
     }
 
-    public static func * (lhs: Matrix3, rhs: Vector3) -> Vector3 {
+    static func * (lhs: Matrix3, rhs: Vector3) -> Vector3 {
         return rhs * lhs
     }
 
-    public static func * (lhs: Matrix3, rhs: Scalar) -> Matrix3 {
+    static func * (lhs: Matrix3, rhs: Scalar) -> Matrix3 {
         return Matrix3(
             lhs.m11 * rhs, lhs.m12 * rhs, lhs.m13 * rhs,
             lhs.m21 * rhs, lhs.m22 * rhs, lhs.m23 * rhs,
@@ -640,7 +640,7 @@ public extension Matrix3 {
         )
     }
 
-    public static func ~= (lhs: Matrix3, rhs: Matrix3) -> Bool {
+    static func ~= (lhs: Matrix3, rhs: Matrix3) -> Bool {
         if !(lhs.m11 ~= rhs.m11) { return false }
         if !(lhs.m12 ~= rhs.m12) { return false }
         if !(lhs.m13 ~= rhs.m13) { return false }
@@ -657,12 +657,12 @@ public extension Matrix3 {
 // MARK: Matrix4
 
 public extension Matrix4 {
-    public static let identity = Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+    static let identity = Matrix4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
-    public init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar, _ m14: Scalar,
-                _ m21: Scalar, _ m22: Scalar, _ m23: Scalar, _ m24: Scalar,
-                _ m31: Scalar, _ m32: Scalar, _ m33: Scalar, _ m34: Scalar,
-                _ m41: Scalar, _ m42: Scalar, _ m43: Scalar, _ m44: Scalar) {
+    init(_ m11: Scalar, _ m12: Scalar, _ m13: Scalar, _ m14: Scalar,
+         _ m21: Scalar, _ m22: Scalar, _ m23: Scalar, _ m24: Scalar,
+         _ m31: Scalar, _ m32: Scalar, _ m33: Scalar, _ m34: Scalar,
+         _ m41: Scalar, _ m42: Scalar, _ m43: Scalar, _ m44: Scalar) {
         self.m11 = m11 // 0
         self.m12 = m12 // 1
         self.m13 = m13 // 2
@@ -681,7 +681,7 @@ public extension Matrix4 {
         self.m44 = m44 // 15
     }
 
-    public init(scale s: Vector3) {
+    init(scale s: Vector3) {
         self.init(
             s.x, 0, 0, 0,
             0, s.y, 0, 0,
@@ -690,7 +690,7 @@ public extension Matrix4 {
         )
     }
 
-    public init(translation t: Vector3) {
+    init(translation t: Vector3) {
         self.init(
             1, 0, 0, 0,
             0, 1, 0, 0,
@@ -699,11 +699,11 @@ public extension Matrix4 {
         )
     }
 
-    public init(rotation axisAngle: Vector4) {
+    init(rotation axisAngle: Vector4) {
         self.init(quaternion: Quaternion(axisAngle: axisAngle))
     }
 
-    public init(quaternion q: Quaternion) {
+    init(quaternion q: Quaternion) {
         self.init(
             1 - 2 * (q.y * q.y + q.z * q.z), 2 * (q.x * q.y + q.z * q.w), 2 * (q.x * q.z - q.y * q.w), 0,
             2 * (q.x * q.y - q.z * q.w), 1 - 2 * (q.x * q.x + q.z * q.z), 2 * (q.y * q.z + q.x * q.w), 0,
@@ -712,15 +712,15 @@ public extension Matrix4 {
         )
     }
 
-    public init(fovx: Scalar, fovy: Scalar, near: Scalar, far: Scalar) {
+    init(fovx: Scalar, fovy: Scalar, near: Scalar, far: Scalar) {
         self.init(fovy: fovy, aspect: fovx / fovy, near: near, far: far)
     }
 
-    public init(fovx: Scalar, aspect: Scalar, near: Scalar, far: Scalar) {
+    init(fovx: Scalar, aspect: Scalar, near: Scalar, far: Scalar) {
         self.init(fovy: fovx / aspect, aspect: aspect, near: near, far: far)
     }
 
-    public init(fovy: Scalar, aspect: Scalar, near: Scalar, far: Scalar) {
+    init(fovy: Scalar, aspect: Scalar, near: Scalar, far: Scalar) {
         let dz = far - near
 
         assert(dz > 0, "far value must be greater than near")
@@ -738,7 +738,7 @@ public extension Matrix4 {
         )
     }
 
-    public init(top: Scalar, right: Scalar, bottom: Scalar, left: Scalar, near: Scalar, far: Scalar) {
+    init(top: Scalar, right: Scalar, bottom: Scalar, left: Scalar, near: Scalar, far: Scalar) {
         let dx = right - left
         let dy = top - bottom
         let dz = far - near
@@ -751,7 +751,7 @@ public extension Matrix4 {
         )
     }
 
-    public init(_ m: [Scalar]) {
+    init(_ m: [Scalar]) {
         assert(m.count == 16, "array must contain 16 elements, contained \(m.count)")
 
         m11 = m[0]
@@ -772,11 +772,11 @@ public extension Matrix4 {
         m44 = m[15]
     }
 
-    public func toArray() -> [Scalar] {
+    func toArray() -> [Scalar] {
         return [m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44]
     }
 
-    public var adjugate: Matrix4 {
+    var adjugate: Matrix4 {
         var m = Matrix4.identity
 
         m.m11 = m22 * m33 * m44 - m22 * m34 * m43
@@ -850,11 +850,11 @@ public extension Matrix4 {
         return m11 * m.m11 + m12 * m.m21 + m13 * m.m31 + m14 * m.m41
     }
 
-    public var determinant: Scalar {
+    var determinant: Scalar {
         return determinant(forAdjugate: adjugate)
     }
 
-    public var transpose: Matrix4 {
+    var transpose: Matrix4 {
         return Matrix4(
             m11, m21, m31, m41,
             m12, m22, m32, m42,
@@ -863,16 +863,16 @@ public extension Matrix4 {
         )
     }
 
-    public var inverse: Matrix4 {
+    var inverse: Matrix4 {
         let adjugate = self.adjugate // avoid recalculating
         return adjugate * (1 / determinant(forAdjugate: adjugate))
     }
 
-    public static prefix func - (m: Matrix4) -> Matrix4 {
+    static prefix func - (m: Matrix4) -> Matrix4 {
         return m.inverse
     }
 
-    public static func * (lhs: Matrix4, rhs: Matrix4) -> Matrix4 {
+    static func * (lhs: Matrix4, rhs: Matrix4) -> Matrix4 {
         var m = Matrix4.identity
 
         m.m11 = lhs.m11 * rhs.m11 + lhs.m21 * rhs.m12
@@ -926,15 +926,15 @@ public extension Matrix4 {
         return m
     }
 
-    public static func * (lhs: Matrix4, rhs: Vector3) -> Vector3 {
+    static func * (lhs: Matrix4, rhs: Vector3) -> Vector3 {
         return rhs * lhs
     }
 
-    public static func * (lhs: Matrix4, rhs: Vector4) -> Vector4 {
+    static func * (lhs: Matrix4, rhs: Vector4) -> Vector4 {
         return rhs * lhs
     }
 
-    public static func * (lhs: Matrix4, rhs: Scalar) -> Matrix4 {
+    static func * (lhs: Matrix4, rhs: Scalar) -> Matrix4 {
         return Matrix4(
             lhs.m11 * rhs, lhs.m12 * rhs, lhs.m13 * rhs, lhs.m14 * rhs,
             lhs.m21 * rhs, lhs.m22 * rhs, lhs.m23 * rhs, lhs.m24 * rhs,
@@ -943,7 +943,7 @@ public extension Matrix4 {
         )
     }
 
-    public static func ~= (lhs: Matrix4, rhs: Matrix4) -> Bool {
+    static func ~= (lhs: Matrix4, rhs: Matrix4) -> Bool {
         if !(lhs.m11 ~= rhs.m11) { return false }
         if !(lhs.m12 ~= rhs.m12) { return false }
         if !(lhs.m13 ~= rhs.m13) { return false }
@@ -967,22 +967,22 @@ public extension Matrix4 {
 // MARK: Quaternion
 
 public extension Quaternion {
-    public static let zero = Quaternion(0, 0, 0, 0)
-    public static let identity = Quaternion(0, 0, 0, 1)
+    static let zero = Quaternion(0, 0, 0, 0)
+    static let identity = Quaternion(0, 0, 0, 1)
 
-    public var lengthSquared: Scalar {
+    var lengthSquared: Scalar {
         return x * x + y * y + z * z + w * w
     }
 
-    public var length: Scalar {
+    var length: Scalar {
         return sqrt(lengthSquared)
     }
 
-    public var inverse: Quaternion {
+    var inverse: Quaternion {
         return -self
     }
 
-    public var xyz: Vector3 {
+    var xyz: Vector3 {
         get {
             return Vector3(x, y, z)
         }
@@ -993,30 +993,30 @@ public extension Quaternion {
         }
     }
 
-    public var pitch: Scalar {
+    var pitch: Scalar {
         return asin(min(1, max(-1, 2 * (w * y - z * x))))
     }
 
-    public var yaw: Scalar {
+    var yaw: Scalar {
         return atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
     }
 
-    public var roll: Scalar {
+    var roll: Scalar {
         return atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y))
     }
 
-    public init(_ x: Scalar, _ y: Scalar, _ z: Scalar, _ w: Scalar) {
+    init(_ x: Scalar, _ y: Scalar, _ z: Scalar, _ w: Scalar) {
         self.init(x: x, y: y, z: z, w: w)
     }
 
-    public init(axisAngle: Vector4) {
+    init(axisAngle: Vector4) {
         let r = axisAngle.w * 0.5
         let scale = sin(r)
         let a = axisAngle.xyz * scale
         self.init(a.x, a.y, a.z, cos(r))
     }
 
-    public init(pitch: Scalar, yaw: Scalar, roll: Scalar) {
+    init(pitch: Scalar, yaw: Scalar, roll: Scalar) {
         let t0 = cos(yaw * 0.5)
         let t1 = sin(yaw * 0.5)
         let t2 = cos(roll * 0.5)
@@ -1031,7 +1031,7 @@ public extension Quaternion {
         )
     }
 
-    public init(rotationMatrix m: Matrix4) {
+    init(rotationMatrix m: Matrix4) {
         let x = sqrt(max(0, 1 + m.m11 - m.m22 - m.m33)) / 2
         let y = sqrt(max(0, 1 - m.m11 + m.m22 - m.m33)) / 2
         let z = sqrt(max(0, 1 - m.m11 - m.m22 + m.m33)) / 2
@@ -1044,7 +1044,7 @@ public extension Quaternion {
         )
     }
 
-    public init(_ v: [Scalar]) {
+    init(_ v: [Scalar]) {
         assert(v.count == 4, "array must contain 4 elements, contained \(v.count)")
 
         x = v[0]
@@ -1053,7 +1053,7 @@ public extension Quaternion {
         w = v[3]
     }
 
-    public func toAxisAngle() -> Vector4 {
+    func toAxisAngle() -> Vector4 {
         let scale = xyz.length
         if scale ~= 0 || scale ~= .twoPi {
             return .z
@@ -1062,19 +1062,19 @@ public extension Quaternion {
         }
     }
 
-    public func toPitchYawRoll() -> (pitch: Scalar, yaw: Scalar, roll: Scalar) {
+    func toPitchYawRoll() -> (pitch: Scalar, yaw: Scalar, roll: Scalar) {
         return (pitch, yaw, roll)
     }
 
-    public func toArray() -> [Scalar] {
+    func toArray() -> [Scalar] {
         return [x, y, z, w]
     }
 
-    public func dot(_ v: Quaternion) -> Scalar {
+    func dot(_ v: Quaternion) -> Scalar {
         return x * v.x + y * v.y + z * v.z + w * v.w
     }
 
-    public func normalized() -> Quaternion {
+    func normalized() -> Quaternion {
         let lengthSquared = self.lengthSquared
         if lengthSquared ~= 0 || lengthSquared ~= 1 {
             return self
@@ -1082,7 +1082,7 @@ public extension Quaternion {
         return self / sqrt(lengthSquared)
     }
 
-    public func interpolated(with q: Quaternion, by t: Scalar) -> Quaternion {
+    func interpolated(with q: Quaternion, by t: Scalar) -> Quaternion {
         let dot = max(-1, min(1, self.dot(q)))
         if dot ~= 1 {
             return (self + (q - self) * t).normalized()
@@ -1094,19 +1094,19 @@ public extension Quaternion {
         return t1 + t2
     }
 
-    public static prefix func - (q: Quaternion) -> Quaternion {
+    static prefix func - (q: Quaternion) -> Quaternion {
         return Quaternion(-q.x, -q.y, -q.z, q.w)
     }
 
-    public static func + (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
+    static func + (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
         return Quaternion(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w)
     }
 
-    public static func - (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
+    static func - (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
         return Quaternion(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w)
     }
 
-    public static func * (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
+    static func * (lhs: Quaternion, rhs: Quaternion) -> Quaternion {
         return Quaternion(
             lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
             lhs.w * rhs.y + lhs.y * rhs.w + lhs.z * rhs.x - lhs.x * rhs.z,
@@ -1115,19 +1115,19 @@ public extension Quaternion {
         )
     }
 
-    public static func * (lhs: Quaternion, rhs: Vector3) -> Vector3 {
+    static func * (lhs: Quaternion, rhs: Vector3) -> Vector3 {
         return rhs * lhs
     }
 
-    public static func * (lhs: Quaternion, rhs: Scalar) -> Quaternion {
+    static func * (lhs: Quaternion, rhs: Scalar) -> Quaternion {
         return Quaternion(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs)
     }
 
-    public static func / (lhs: Quaternion, rhs: Scalar) -> Quaternion {
+    static func / (lhs: Quaternion, rhs: Scalar) -> Quaternion {
         return Quaternion(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs)
     }
 
-    public static func ~= (lhs: Quaternion, rhs: Quaternion) -> Bool {
+    static func ~= (lhs: Quaternion, rhs: Quaternion) -> Bool {
         return lhs.x ~= rhs.x && lhs.y ~= rhs.y && lhs.z ~= rhs.z && lhs.w ~= rhs.w
     }
 }

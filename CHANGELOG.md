@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.4.0](https://github.com/nicklockwood/VectorMath/releases/tag/0.4.0) (2019-05-18)
+
+- Updated for Swift 5 and Xcode 10.2
+- Added MapKit integration
+- Minimum supported Swift version is now 4.2
+
 ## [0.3.3](https://github.com/nicklockwood/VectorMath/releases/tag/0.3.3) (2018-05-08)
 
 - Switched to a more conventional MIT license

@@ -1,6 +1,6 @@
 [![Travis](https://img.shields.io/travis/nicklockwood/VectorMath.svg?maxAge=2592000)](https://travis-ci.org/nicklockwood/VectorMath)
-[![Swift 3.3](https://img.shields.io/badge/swift-3.3-orange.svg?style=flat)](https://developer.apple.com/swift)
-[![Swift 4.1](https://img.shields.io/badge/swift-4.1-red.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift 4.2](https://img.shields.io/badge/swift-4.2-orange.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift 5.0](https://img.shields.io/badge/swift-5.0-red.svg?style=flat)](https://developer.apple.com/swift)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)
 [![Twitter](https://img.shields.io/badge/twitter-@nicklockwood-blue.svg?maxAge=2592000)](http://twitter.com/nicklockwood)
 
@@ -22,8 +22,8 @@ VectorMath is designed to be efficient, but has not been heavily optimized yet, 
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 11.0, Mac OS 10.13 (Xcode 9.3)
-* Earliest supported deployment target - iOS 9.0, Mac OS 10.12
+* Supported build target - iOS 12.0, Mac OS 10.14 (Xcode 10.2)
+* Earliest supported deployment target - iOS 9.0, Mac OS 10.13
 * Earliest compatible deployment target - iOS 7.0, Mac OS 10.9
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
@@ -262,6 +262,7 @@ In addition, the following people have contributed directly to the project:
 * @harlanhaskins - SPM and Linux support
 * @milpitas - CocoaPods support
 * @billhsu / @ismailbozk  - Bug fixes and test coverage
+* @jiropole - MapKit integration
 * @nicklockwood - Everything else
 
 ([Full list of contributors](https://github.com/nicklockwood/VectorMath/graphs/contributors))
