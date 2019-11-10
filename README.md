@@ -22,7 +22,7 @@ VectorMath is designed to be efficient, but has not been heavily optimized yet, 
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 12.0, Mac OS 10.14 (Xcode 10.2)
+* Supported build target - iOS 12.0, Mac OS 10.14 (Xcode 11.1)
 * Earliest supported deployment target - iOS 9.0, Mac OS 10.13
 * Earliest compatible deployment target - iOS 7.0, Mac OS 10.9
 

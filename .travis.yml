@@ -5,7 +5,7 @@ matrix:
   include:
     - os: osx
       language: objective-c
-      osx_image: xcode9.3
+      osx_image: xcode10.1
       script: xcodebuild -project Tests/UnitTests.xcodeproj -scheme "iOS Tests" -sdk iphonesimulator
     - os: linux
       language: generic
